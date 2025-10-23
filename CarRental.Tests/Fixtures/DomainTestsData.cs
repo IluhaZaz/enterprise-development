@@ -74,7 +74,7 @@ public class CarRentalFixture
 
         RentalLogs = new List<RentalLog>
         {
-            // Toyota Camry (самый попул€рный)
+            // Toyota Camry (most popular)
             new RentalLog { Id = 1, Car = Cars[0], Client = Clients[0], RentStartDate = new DateTime(2024, 1, 10, 10, 0, 0), Duration = 24 },
             new RentalLog { Id = 2, Car = Cars[0], Client = Clients[1], RentStartDate = new DateTime(2024, 1, 15, 14, 0, 0), Duration = 48 },
             new RentalLog { Id = 3, Car = Cars[0], Client = Clients[2], RentStartDate = new DateTime(2024, 2, 1, 9, 0, 0), Duration = 12 },
@@ -108,7 +108,7 @@ public class CarRentalFixture
             // Skoda Octavia
             new RentalLog { Id = 18, Car = Cars[12], Client = Clients[9], RentStartDate = new DateTime(2024, 2, 17, 16, 0, 0), Duration = 24 },
         
-            // ≈ще аренды дл€ статистики
+            // Other rents for statistics
             new RentalLog { Id = 19, Car = Cars[0], Client = Clients[2], RentStartDate = new DateTime(2024, 2, 18, 11, 0, 0), Duration = 36 },
             new RentalLog { Id = 20, Car = Cars[1], Client = Clients[4], RentStartDate = new DateTime(2024, 2, 19, 13, 0, 0), Duration = 24 },
             new RentalLog { Id = 21, Car = Cars[3], Client = Clients[6], RentStartDate = new DateTime(2024, 2, 20, 10, 0, 0), Duration = 18 },

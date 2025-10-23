@@ -13,7 +13,7 @@ public class ModelGeneration
     public required int Id { get; set; }
 
     /// <summary>
-    /// Íear of model's release
+    /// Year of model's release
     /// </summary>
     public required int Year { get; set; }
 
