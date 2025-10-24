@@ -1,9 +1,18 @@
 using CarRental.Domain.Entities;
+using CarRental.Domain.TestData;
 
 namespace CarRental.Tests;
 
-public class CarRenatalTests(CarRentalFixture fixture) : IClassFixture<CarRentalFixture>
+
+/// <summary>
+/// Class containing unit tests to check domain classes work properly
+/// </summary>
+public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRentalDataSeed>
 {
+    /// <summary>
+    /// Retrieves all clients who have rented cars of a specified model, 
+    /// ordered alphabetically by last name, first name, and patronymic
+    /// </summary>
     [Fact]
     public void GetClientsRentedModel()
     {
@@ -28,6 +37,10 @@ public class CarRenatalTests(CarRentalFixture fixture) : IClassFixture<CarRental
         Assert.Equal(expectedClients, actual);
     }
 
+
+    /// <summary>
+    /// Retrieves all cars that are currently rented
+    /// </summary>
     [Fact]
     public void GetCarsInRent()
     {
@@ -44,6 +57,9 @@ public class CarRenatalTests(CarRentalFixture fixture) : IClassFixture<CarRental
         Assert.Equal(expectedCars, actual);
     }
 
+    /// <summary>
+    /// Retrieves the top 5 most frequently rented cars based on total rental count
+    /// </summary>
     [Fact]
     public void GetTopFiveCars()
     {
@@ -62,6 +78,9 @@ public class CarRenatalTests(CarRentalFixture fixture) : IClassFixture<CarRental
         Assert.Equal(expectedCars, actual);
     }
 
+    /// <summary>
+    /// Returns the total number of rentals for each car
+    /// </summary>
     [Fact]
     public void GetRentNumByCar()
     {
@@ -87,6 +106,10 @@ public class CarRenatalTests(CarRentalFixture fixture) : IClassFixture<CarRental
         Assert.Equal(expectedResult, actual);
     }
 
+    /// <summary>
+    /// Retrieves the top 5 clients with the highest total rental amount, 
+    /// calculated as the sum of (duration × price per hour) across all their rentals
+    /// </summary>
     [Fact]
     public void GetTopFiveClientsByRent()
     {
@@ -101,7 +124,7 @@ public class CarRenatalTests(CarRentalFixture fixture) : IClassFixture<CarRental
         .Select(g => new
         {
             Client = g.Key,
-            TotalAmount = g.Sum(r => r.Duration * r.Car.Generation.PricePerHour)
+            TotalAmount = g.Sum(r => (decimal)r.Duration * r.Car.Generation.PricePerHour)
         })
         .OrderByDescending(x => x.TotalAmount)
         .Take(5)

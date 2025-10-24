@@ -28,7 +28,7 @@ public class Client
     /// <summary>
     /// Client's birthday date
     /// </summary>
-    public required DateTime BirthDate { get; set; }
+    public required DateOnly BirthDate { get; set; }
 
     /// <summary>
     /// Client's driver license number

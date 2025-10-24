@@ -15,12 +15,12 @@ public class ModelGeneration
     /// <summary>
     /// Year of model's release
     /// </summary>
-    public required int Year { get; set; }
+    public int? Year { get; set; }
 
     /// <summary>
     /// Engine's volume, liters
     /// </summary>
-    public required float EngineVolume { get; set; }
+    public double? EngineVolume { get; set; }
 
     /// <summary>
     /// Reference to car's model
@@ -30,7 +30,7 @@ public class ModelGeneration
     /// <summary>
     /// Type of model's transmission  type
     /// </summary>
-    public required CarTransmissionType TransmissionType { get; set; }
+    public CarTransmissionType? TransmissionType { get; set; }
 
     /// <summary>
     /// Price for rent, rubles per hour

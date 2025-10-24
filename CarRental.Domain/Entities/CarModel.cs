@@ -25,15 +25,15 @@ public class CarModel
     /// <summary>
     /// Type of model's drive system
     /// </summary>
-    public required CarDriveType DriveType { get; set; }
+    public CarDriveType? DriveType { get; set; }
 
     /// <summary>
     /// Type of model's body
     /// </summary>
-    public required CarBodyType BodyType { get; set; }
+    public CarBodyType? BodyType { get; set; }
 
     /// <summary>
     /// Model's class by prestige
     /// </summary>
-    public required CarClass Class { get; set; }
+    public CarClass? Class { get; set; }
 }

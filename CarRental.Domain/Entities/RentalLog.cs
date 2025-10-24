@@ -28,5 +28,5 @@ public class RentalLog
     /// <summary>
     /// How much rent lasts
     /// </summary>
-    public required Decimal Duration { get; set; }
+    public required double Duration { get; set; }
 }

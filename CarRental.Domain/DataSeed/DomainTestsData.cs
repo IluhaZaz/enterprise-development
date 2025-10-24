@@ -1,18 +1,40 @@
 using CarRental.Domain.Entities;
 using CarRental.Domain.Enums;
+using System.Drawing;
 
-namespace CarRental.Tests;
+namespace CarRental.Domain.TestData;
 
-
-public class CarRentalFixture
+/// <summary>
+/// Class containing data for unit tests
+/// </summary>
+public class CarRentalDataSeed
 {
+    /// <summary>
+    /// Contains different car models for testing
+    /// </summary>
     public List<CarModel> CarModels { get; }
+
+    /// <summary>
+    /// Contains car models generatinos for testing
+    /// </summary>
     public List<ModelGeneration> ModelGenerations { get; }
+
+    /// <summary>
+    /// Contains different cars for testing
+    /// </summary>
     public List<Car> Cars { get; }
+
+    /// <summary>
+    /// Contains different clients for testing
+    /// </summary>
     public List<Client> Clients { get; }
+
+    /// <summary>
+    /// Contains different rent contract logs for testing
+    /// </summary>
     public List<RentalLog> RentalLogs { get; }
 
-    public CarRentalFixture()
+    public CarRentalDataSeed()
     { 
         CarModels = new List<CarModel>
         {
@@ -42,34 +64,34 @@ public class CarRentalFixture
 
         Cars = new List<Car>
         {
-            new Car { Id = 1, Generation = ModelGenerations[0], LicensePlate = "À123ÂÑ777", color = "Black" },
-            new Car { Id = 2, Generation = ModelGenerations[0], LicensePlate = "Â456ÎÐ777", color = "White" },
-            new Car { Id = 3, Generation = ModelGenerations[1], LicensePlate = "Å789ÒÒ777", color = "Silver" },
-            new Car { Id = 4, Generation = ModelGenerations[2], LicensePlate = "Ê321ÌÌ777", color = "Blue" },
-            new Car { Id = 5, Generation = ModelGenerations[2], LicensePlate = "Ì654ÍÍ777", color = "Black" },
-            new Car { Id = 6, Generation = ModelGenerations[3], LicensePlate = "Î987ÐÐ777", color = "Red" },
-            new Car { Id = 7, Generation = ModelGenerations[3], LicensePlate = "Ð159ÑÑ777", color = "White" },
-            new Car { Id = 8, Generation = ModelGenerations[4], LicensePlate = "Ñ753ÓÓ777", color = "Gray" },
-            new Car { Id = 9, Generation = ModelGenerations[5], LicensePlate = "Ò456ÔÔ777", color = "Black" },
-            new Car { Id = 10, Generation = ModelGenerations[5], LicensePlate = "Ó789ÕÕ777", color = "White" },
-            new Car { Id = 11, Generation = ModelGenerations[6], LicensePlate = "Õ123ÊÊ777", color = "Blue" },
-            new Car { Id = 12, Generation = ModelGenerations[7], LicensePlate = "Ö456ËË777", color = "Green" },
-            new Car { Id = 13, Generation = ModelGenerations[8], LicensePlate = "×789ÌÌ777", color = "Silver" },
-            new Car { Id = 14, Generation = ModelGenerations[9], LicensePlate = "Ø321ÍÍ777", color = "Red" }
+            new Car { Id = 1, Generation = ModelGenerations[0], LicensePlate = "A123BC777", Color = Color.Black },
+            new Car { Id = 2, Generation = ModelGenerations[0], LicensePlate = "B456OP777", Color = Color.White },
+            new Car { Id = 3, Generation = ModelGenerations[1], LicensePlate = "E789TT777", Color = Color.Silver },
+            new Car { Id = 4, Generation = ModelGenerations[2], LicensePlate = "K321MM777", Color = Color.Blue },
+            new Car { Id = 5, Generation = ModelGenerations[2], LicensePlate = "M654HH777", Color = Color.Black },
+            new Car { Id = 6, Generation = ModelGenerations[3], LicensePlate = "O987PP777", Color = Color.Red },
+            new Car { Id = 7, Generation = ModelGenerations[3], LicensePlate = "P159CC777", Color = Color.White },
+            new Car { Id = 8, Generation = ModelGenerations[4], LicensePlate = "C753YY777", Color = Color.Gray },
+            new Car { Id = 9, Generation = ModelGenerations[5], LicensePlate = "T456FF777", Color = Color.Black },
+            new Car { Id = 10, Generation = ModelGenerations[5], LicensePlate = "Y789XX777", Color = Color.White },
+            new Car { Id = 11, Generation = ModelGenerations[6], LicensePlate = "X123KK777", Color = Color.Blue },
+            new Car { Id = 12, Generation = ModelGenerations[7], LicensePlate = "C456LL777", Color = Color.Green },
+            new Car { Id = 13, Generation = ModelGenerations[8], LicensePlate = "×789MM777", Color = Color.Silver },
+            new Car { Id = 14, Generation = ModelGenerations[9], LicensePlate = "H321HH777", Color = Color.Red }
         };
 
         Clients = new List<Client>
         {
-            new Client { Id = 1, LastName = "Ivanov", FirstName = "Ivan", Patronymic = "Ivanovich", BirthDate = new DateTime(1985, 5, 15), DriverLicense = "7712345678" },
-            new Client { Id = 2, LastName = "Petrov", FirstName = "Petr", Patronymic = "Petrovich", BirthDate = new DateTime(1990, 8, 22), DriverLicense = "7723456789" },
-            new Client { Id = 3, LastName = "Sidorov", FirstName = "Alexey", Patronymic = "Sergeevich", BirthDate = new DateTime(1988, 3, 10), DriverLicense = "7734567890" },
-            new Client { Id = 4, LastName = "Smirnov", FirstName = "Dmitry", Patronymic = "Andreevich", BirthDate = new DateTime(1992, 11, 5), DriverLicense = "7745678901" },
-            new Client { Id = 5, LastName = "Kuznetsov", FirstName = "Sergey", Patronymic = "Mikhailovich", BirthDate = new DateTime(1987, 7, 18), DriverLicense = "7756789012" },
-            new Client { Id = 6, LastName = "Popov", FirstName = "Mikhail", Patronymic = "Dmitrievich", BirthDate = new DateTime(1995, 2, 28), DriverLicense = "7767890123" },
-            new Client { Id = 7, LastName = "Volkov", FirstName = "Andrey", Patronymic = "Alexeevich", BirthDate = new DateTime(1983, 9, 12), DriverLicense = "7778901234" },
-            new Client { Id = 8, LastName = "Sokolov", FirstName = "Pavel", Patronymic = "Nikolaevich", BirthDate = new DateTime(1991, 6, 8), DriverLicense = "7789012345" },
-            new Client { Id = 9, LastName = "Novikov", FirstName = "Nikolay", Patronymic = "Vladimirovich", BirthDate = new DateTime(1989, 4, 25), DriverLicense = "7790123456" },
-            new Client { Id = 10, LastName = "Morozov", FirstName = "Vladimir", Patronymic = "Olegovich", BirthDate = new DateTime(1993, 12, 3), DriverLicense = "7701234567" }
+            new Client { Id = 1, LastName = "Ivanov", FirstName = "Ivan", Patronymic = "Ivanovich", BirthDate = new DateOnly(1985, 5, 15), DriverLicense = "7712345678" },
+            new Client { Id = 2, LastName = "Petrov", FirstName = "Petr", Patronymic = "Petrovich", BirthDate = new DateOnly(1990, 8, 22), DriverLicense = "7723456789" },
+            new Client { Id = 3, LastName = "Sidorov", FirstName = "Alexey", Patronymic = "Sergeevich", BirthDate = new DateOnly(1988, 3, 10), DriverLicense = "7734567890" },
+            new Client { Id = 4, LastName = "Smirnov", FirstName = "Dmitry", Patronymic = "Andreevich", BirthDate = new DateOnly(1992, 11, 5), DriverLicense = "7745678901" },
+            new Client { Id = 5, LastName = "Kuznetsov", FirstName = "Sergey", Patronymic = "Mikhailovich", BirthDate = new DateOnly(1987, 7, 18), DriverLicense = "7756789012" },
+            new Client { Id = 6, LastName = "Popov", FirstName = "Mikhail", Patronymic = "Dmitrievich", BirthDate = new DateOnly(1995, 2, 28), DriverLicense = "7767890123" },
+            new Client { Id = 7, LastName = "Volkov", FirstName = "Andrey", Patronymic = "Alexeevich", BirthDate = new DateOnly(1983, 9, 12), DriverLicense = "7778901234" },
+            new Client { Id = 8, LastName = "Sokolov", FirstName = "Pavel", Patronymic = "Nikolaevich", BirthDate = new DateOnly(1991, 6, 8), DriverLicense = "7789012345" },
+            new Client { Id = 9, LastName = "Novikov", FirstName = "Nikolay", Patronymic = "Vladimirovich", BirthDate = new DateOnly(1989, 4, 25), DriverLicense = "7790123456" },
+            new Client { Id = 10, LastName = "Morozov", FirstName = "Vladimir", Patronymic = "Olegovich", BirthDate = new DateOnly(1993, 12, 3), DriverLicense = "7701234567" }
         };
 
         RentalLogs = new List<RentalLog>

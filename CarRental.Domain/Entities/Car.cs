@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace CarRental.Domain.Entities;
 
 /// <summary>
@@ -23,5 +25,5 @@ public class Car
     /// <summary>
     /// Car's color
     /// </summary>
-    public required string color { get; set; }
+    public Color? Color { get; set; }
 }
