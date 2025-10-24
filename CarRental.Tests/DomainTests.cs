@@ -19,12 +19,6 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
         var target = fixture.CarModels[1];
 
         var expectedClientsId = new[] { 2, 6, 7};
-        var expectedClients = fixture.Clients
-            .Where(c => expectedClientsId.Contains(c.Id))
-            .OrderBy(c => c.LastName)
-            .ThenBy(c => c.FirstName)
-            .ThenBy(c => c.Patronymic)
-            .ToList();
 
         var actual = fixture.RentalLogs
             .Where(r => r.Car.Generation.Model.Name == target.Name)
@@ -33,8 +27,9 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
             .OrderBy(c => c.LastName)
             .ThenBy(c => c.FirstName)
             .ThenBy(c => c.Patronymic)
-            .ToList();
-        Assert.Equal(expectedClients, actual);
+            .ToList()
+            .Select(c => c.Id);
+        Assert.Equal(expectedClientsId, actual);
     }
 
 
@@ -47,14 +42,11 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
         var currentTime = new DateTime(2024, 2, 19, 14, 0, 0);
 
         var expectedCarsId = new[] { 1, 2 };
-        var expectedCars = fixture.Cars
-            .Where(c => expectedCarsId.Contains(c.Id))
-            .ToList();
 
         var actual = fixture.RentalLogs
             .Where(r => r.RentStartDate <= currentTime && currentTime <= r.RentStartDate.AddHours((double)r.Duration))
-            .Select(r => r.Car);
-        Assert.Equal(expectedCars, actual);
+            .Select(r => r.Car.Id);
+        Assert.Equal(expectedCarsId, actual);
     }
 
     /// <summary>
@@ -64,18 +56,15 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
     public void GetTopFiveCars()
     {
         var expectedCarsId = new[] { 1, 2, 4, 6, 9 };
-        var expectedCars = fixture.Cars
-            .Where(c => expectedCarsId.Contains(c.Id))
-            .ToList();
 
         var actual = fixture.RentalLogs
             .GroupBy(log => log.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
             .OrderByDescending(x => x.Count)
             .Take(5)
-            .Select(x => x.Car)
+            .Select(x => x.Car.Id)
             .ToList();
-        Assert.Equal(expectedCars, actual);
+        Assert.Equal(expectedCarsId, actual);
     }
 
     /// <summary>
@@ -91,17 +80,17 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
 
         var carsLen = allCars.Count;
 
-        var expectedResult = new Dictionary<Car, int>();
+        var expectedResult = new Dictionary<int, int>();
         for (var i = 0; i < carsLen; i++)
         {
-            expectedResult[allCars[i]] = expected[i];
+            expectedResult[i + 1] = expected[i];
         }
 
         var actual = fixture.RentalLogs
             .GroupBy(r => r.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
             .OrderBy(c => c.Car.Id)
-            .ToDictionary(g => g.Car, g => g.Count);
+            .ToDictionary(g => g.Car.Id, g => g.Count);
 
         Assert.Equal(expectedResult, actual);
     }
@@ -114,10 +103,6 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
     public void GetTopFiveClientsByRent()
     {
         var expectedClientsId = new[] { 6, 5, 2, 1, 4 };
-        var expectedClients = fixture.Clients
-            .Where(c => expectedClientsId.Contains(c.Id))
-            .OrderBy(c => c.Id)
-            .ToList();
 
         var actual = fixture.RentalLogs
         .GroupBy(r => r.Client)
@@ -128,10 +113,9 @@ public class CarRenatalTests(CarRentalDataSeed fixture) : IClassFixture<CarRenta
         })
         .OrderByDescending(x => x.TotalAmount)
         .Take(5)
-        .Select(c => c.Client)
-        .OrderBy(c => c.Id)
+        .Select(c => c.Client.Id)
         .ToList();
 
-        Assert.Equal(actual, expectedClients);
+        Assert.Equal(actual, expectedClientsId);
     }
 }
