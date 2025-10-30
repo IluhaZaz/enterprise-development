@@ -76,7 +76,7 @@ public class CarRentalDataSeed
             new Car { Id = 10, Generation = ModelGenerations[5], LicensePlate = "Y789XX777", Color = Color.White },
             new Car { Id = 11, Generation = ModelGenerations[6], LicensePlate = "X123KK777", Color = Color.Blue },
             new Car { Id = 12, Generation = ModelGenerations[7], LicensePlate = "C456LL777", Color = Color.Green },
-            new Car { Id = 13, Generation = ModelGenerations[8], LicensePlate = "×789MM777", Color = Color.Silver },
+            new Car { Id = 13, Generation = ModelGenerations[8], LicensePlate = "Z789MM777", Color = Color.Silver },
             new Car { Id = 14, Generation = ModelGenerations[9], LicensePlate = "H321HH777", Color = Color.Red }
         };
 
