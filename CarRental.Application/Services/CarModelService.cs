@@ -1,11 +1,11 @@
-﻿using CarRental.Application.Interfaces;
-using CarRental.Infrastructure.Repositories.InMemory;
+﻿using AutoMapper;
 using CarRental.Application.Contracts;
-using AutoMapper;
+using CarRental.Application.Interfaces;
 using CarRental.Domain.Entities;
+using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
-public class CarModelService(CarModelRepository repository, IMapper mapper) : IService<CarModelCreate, CarModelGet>
+public class CarModelService(IRepository<CarModel, int> repository, IMapper mapper) : IService<CarModelCreate, CarModelGet>
 {
     public int Create(CarModelCreate entity_dto)
     {

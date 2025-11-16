@@ -1,14 +1,14 @@
-﻿using CarRental.Application.Interfaces;
-using CarRental.Infrastructure.Repositories.InMemory;
+﻿using AutoMapper;
 using CarRental.Application.Contracts;
-using AutoMapper;
+using CarRental.Application.Interfaces;
 using CarRental.Domain.Entities;
+using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
 public class RentalLogService(
-    RentalLogRepository repository, 
-    CarRepository carRepository, 
-    ClientRepository clientRepository, 
+    IRepository<RentalLog, int> repository,
+    IRepository<Car, int> carRepository,
+    IRepository<Client, int> clientRepository, 
     IMapper mapper) : IService<RentalLogCreate, RentalLogGet>
 {
     public int Create(RentalLogCreate entity_dto)

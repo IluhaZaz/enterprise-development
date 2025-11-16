@@ -1,13 +1,13 @@
-﻿using CarRental.Application.Interfaces;
-using CarRental.Infrastructure.Repositories.InMemory;
+﻿using AutoMapper;
 using CarRental.Application.Contracts;
-using AutoMapper;
+using CarRental.Application.Interfaces;
 using CarRental.Domain.Entities;
+using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
 public class ModelGenerationService(
-    ModelGenerationRepository repository, 
-    CarModelRepository modelRepository, 
+    IRepository<ModelGeneration, int> repository,
+    IRepository<CarModel, int> modelRepository, 
     IMapper mapper) : IService<ModelGenerationCreate, ModelGenerationGet>
 {
     public int Create(ModelGenerationCreate entity_dto)
