@@ -1,5 +1,4 @@
-using CarRental.Domain.Entities;
-using CarRental.Domain.TestData;
+﻿using CarRental.Tests.Fixtures;
 
 namespace CarRental.Tests;
 
@@ -7,7 +6,7 @@ namespace CarRental.Tests;
 /// <summary>
 /// Class containing unit tests to check domain classes work properly
 /// </summary>
-public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<CarRentalDataSeed>
+public class CarRenatalRepositoryTests(InmemoryRepositoryFixture fixture) : IClassFixture<InmemoryRepositoryFixture>
 {
     /// <summary>
     /// Retrieves all clients who have rented cars of a specified model, 
@@ -16,11 +15,13 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
     [Fact]
     public void GetClientsRentedModel()
     {
-        var target = fixture.CarModels[1];
+        var cars = fixture.CarModelRepository.ReadAll();
+        var target = cars[1];
 
-        var expectedClientsId = new[] { 2, 6, 7};
+        var expectedClientsId = new[] { 2, 6, 7 };
 
-        var actual = fixture.RentalLogs
+        var logs = fixture.RentalLogRepository.ReadAll();
+        var actual = logs
             .Where(r => r.Car.Generation.Model.Name == target.Name)
             .Select(r => r.Client)
             .Distinct()
@@ -43,7 +44,8 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
 
         var expectedCarsId = new[] { 1, 2 };
 
-        var actual = fixture.RentalLogs
+        var logs = fixture.RentalLogRepository.ReadAll();
+        var actual = logs
             .Where(r => r.RentStartDate <= currentTime && currentTime <= r.RentStartDate.AddHours((double)r.Duration))
             .Select(r => r.Car.Id);
         Assert.Equal(expectedCarsId, actual);
@@ -57,7 +59,8 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
     {
         var expectedCarsId = new[] { 1, 2, 4, 6, 9 };
 
-        var actual = fixture.RentalLogs
+        var logs = fixture.RentalLogRepository.ReadAll();
+        var actual = logs
             .GroupBy(log => log.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
             .OrderByDescending(x => x.Count)
@@ -73,7 +76,8 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
     [Fact]
     public void GetRentNumByCar()
     {
-        var allCars = fixture.Cars
+        var cars = fixture.CarRepository.ReadAll();
+        var allCars = cars
             .OrderBy(c => c.Id)
             .ToList();
         var expected = new[] { 4, 3, 1, 3, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1 };
@@ -86,7 +90,8 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
             expectedResult[i + 1] = expected[i];
         }
 
-        var actual = fixture.RentalLogs
+        var logs = fixture.RentalLogRepository.ReadAll();
+        var actual = logs
             .GroupBy(r => r.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
             .OrderBy(c => c.Car.Id)
@@ -104,7 +109,8 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
     {
         var expectedClientsId = new[] { 6, 5, 2, 1, 4 };
 
-        var actual = fixture.RentalLogs
+        var logs = fixture.RentalLogRepository.ReadAll();
+        var actual = logs
         .GroupBy(r => r.Client)
         .Select(g => new
         {
