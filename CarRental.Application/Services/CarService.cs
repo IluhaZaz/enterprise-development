@@ -5,18 +5,31 @@ using AutoMapper;
 using CarRental.Domain.Entities;
 
 namespace CarRental.Application.Services;
-public class CarService(CarRepository repository, IMapper mapper) : IService<CarCreate, CarGet>
+public class CarService(
+    CarRepository repository, 
+    ModelGenerationRepository generationRepository, 
+    IMapper mapper) : IService<CarCreate, CarGet>
 {
     public int Create(CarCreate entity_dto)
     {
+        ModelGeneration generation = generationRepository.Read(entity_dto.GenerationId)
+             ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
+
         Car entity = mapper.Map<Car>(entity_dto);
+        entity.Generation = generation;
+
         repository.Create(entity);
         return entity.Id;
     }
 
     public void Update(CarCreate entity_dto)
     {
+        ModelGeneration generation = generationRepository.Read(entity_dto.GenerationId)
+             ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
+
         Car entity = mapper.Map<Car>(entity_dto);
+        entity.Generation = generation;
+
         repository.Update(entity);
     }
 

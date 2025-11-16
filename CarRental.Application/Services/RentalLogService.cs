@@ -5,18 +5,38 @@ using AutoMapper;
 using CarRental.Domain.Entities;
 
 namespace CarRental.Application.Services;
-public class RentalLogService(RentalLogRepository repository, IMapper mapper) : IService<RentalLogCreate, RentalLogGet>
+public class RentalLogService(
+    RentalLogRepository repository, 
+    CarRepository carRepository, 
+    ClientRepository clientRepository, 
+    IMapper mapper) : IService<RentalLogCreate, RentalLogGet>
 {
     public int Create(RentalLogCreate entity_dto)
     {
+        Car car = carRepository.Read(entity_dto.CarId)
+             ?? throw new KeyNotFoundException($"Car(id={entity_dto.CarId}) does not exist");
+        Client client = clientRepository.Read(entity_dto.ClientId)
+             ?? throw new KeyNotFoundException($"Client(id={entity_dto.ClientId}) does not exist");
+
         RentalLog entity = mapper.Map<RentalLog>(entity_dto);
+        entity.Car = car;
+        entity.Client = client;
+
         repository.Create(entity);
         return entity.Id;
     }
 
     public void Update(RentalLogCreate entity_dto)
     {
+        Car car = carRepository.Read(entity_dto.CarId)
+             ?? throw new KeyNotFoundException($"Car(id={entity_dto.CarId}) does not exist");
+        Client client = clientRepository.Read(entity_dto.ClientId)
+             ?? throw new KeyNotFoundException($"Client(id={entity_dto.ClientId}) does not exist");
+
         RentalLog entity = mapper.Map<RentalLog>(entity_dto);
+        entity.Car = car;
+        entity.Client = client;
+
         repository.Update(entity);
     }
 
