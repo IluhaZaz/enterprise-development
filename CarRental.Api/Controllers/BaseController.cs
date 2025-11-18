@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CarRental.Application.Interfaces;
+﻿using CarRental.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Api.Controllers;
 
+/// <summary>
+/// Base class for controller that manage entities
+/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
@@ -10,6 +13,9 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
     ILogger<BaseController<TEntityCreateDTO, TEntityGetDTO>> logger)
     : ControllerBase
 {
+    /// <summary>
+    /// Api method for creating new entity instance
+    /// </summary>
     [HttpPost]
     public ActionResult<int> Create([FromBody] TEntityCreateDTO entity_dto)
     {
@@ -27,6 +33,9 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         return Ok(result);
     }
 
+    /// <summary>
+    /// Api method for updating entity data
+    /// </summary>
     [HttpPut("{id}")]
     public ActionResult Update([FromBody] TEntityCreateDTO entity_dto)
     {
@@ -43,6 +52,9 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         }
     }
 
+    /// <summary>
+    /// Api method for deleting entity by id
+    /// </summary>
     [HttpDelete("{id}")]
     public ActionResult<bool> Delete(int id)
     {
@@ -56,6 +68,9 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         return NotFound();
     }
 
+    /// <summary>
+    /// Api method for getting all entity instances
+    /// </summary>
     [HttpGet]
     public ActionResult<List<TEntityGetDTO>> GetAll()
     {
@@ -64,6 +79,9 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         return Ok(result);
     }
 
+    /// <summary>
+    /// Api method for getting entity instance by id
+    /// </summary>
     [HttpGet("{id}")]
     public ActionResult<TEntityGetDTO?> Get(int id)
     {
@@ -77,6 +95,9 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         return NotFound();
     }
 
+    /// <summary>
+    /// Print data about all incoming requests
+    /// </summary>
     protected void Log(int code)
     {
         string method = HttpContext.Request.Method;
@@ -93,7 +114,8 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         {
             logger.LogError(message);
         }
-        else { 
+        else
+        {
             logger.LogDebug(message);
         }
     }

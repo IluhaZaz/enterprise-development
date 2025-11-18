@@ -5,12 +5,18 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
+/// <summary>
+/// Provide CRUD operation for RentalLog entity
+/// </summary>
 public class RentalLogService(
     IRepository<RentalLog, int> repository,
     IRepository<Car, int> carRepository,
-    IRepository<Client, int> clientRepository, 
+    IRepository<Client, int> clientRepository,
     IMapper mapper) : IService<RentalLogCreate, RentalLogGet>
 {
+    // <summary>
+    /// Create new entity instance and return it's ID
+    /// </summary>
     public int Create(RentalLogCreate entity_dto)
     {
         Car car = carRepository.Read(entity_dto.CarId)
@@ -26,6 +32,9 @@ public class RentalLogService(
         return entity.Id;
     }
 
+    /// <summary>
+    /// Update entity's data
+    /// </summary>
     public void Update(RentalLogCreate entity_dto)
     {
         Car car = carRepository.Read(entity_dto.CarId)
@@ -40,17 +49,26 @@ public class RentalLogService(
         repository.Update(entity);
     }
 
+    /// <summary>
+    /// Delete entity by ID
+    /// </summary>
     public bool Delete(int id)
     {
         return repository.Delete(id);
     }
 
+    /// <summary>
+    /// Return all entities from storage
+    /// </summary>
     public List<RentalLogGet> ReadAll()
     {
         List<RentalLog> res = repository.ReadAll();
         return mapper.Map<List<RentalLogGet>>(res);
     }
 
+    /// <summary>
+    /// Return entity from storage by id
+    /// </summary>
     public RentalLogGet? Read(int id)
     {
         RentalLog? entity = repository.Read(id);

@@ -5,8 +5,14 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
+/// <summary>
+/// Provide CRUD operation for Client entity
+/// </summary>
 public class ClientService(IRepository<Client, int> repository, IMapper mapper) : IService<ClientCreate, ClientGet>
 {
+    // <summary>
+    /// Create new entity instance and return it's ID
+    /// </summary>
     public int Create(ClientCreate entity_dto)
     {
         Client entity = mapper.Map<Client>(entity_dto);
@@ -14,23 +20,35 @@ public class ClientService(IRepository<Client, int> repository, IMapper mapper) 
         return entity.Id;
     }
 
+    /// <summary>
+    /// Update entity's data
+    /// </summary>
     public void Update(ClientCreate entity_dto)
     {
         Client entity = mapper.Map<Client>(entity_dto);
         repository.Update(entity);
     }
 
+    /// <summary>
+    /// Delete entity by ID
+    /// </summary>
     public bool Delete(int id)
     {
         return repository.Delete(id);
     }
 
+    /// <summary>
+    /// Return all entities from storage
+    /// </summary>
     public List<ClientGet> ReadAll()
     {
         List<Client> res = repository.ReadAll();
         return mapper.Map<List<ClientGet>>(res);
     }
 
+    /// <summary>
+    /// Return entity from storage by id
+    /// </summary>
     public ClientGet? Read(int id)
     {
         Client? entity = repository.Read(id);

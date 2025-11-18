@@ -35,7 +35,7 @@ public class CarRentalDataSeed
     public List<RentalLog> RentalLogs { get; }
 
     public CarRentalDataSeed()
-    { 
+    {
         CarModels = new List<CarModel>
         {
             new CarModel { Id = 1, Name = "Toyota Camry", SeatsNumber = 5, DriveType = CarDriveType.FrontWheel, BodyType = CarBodyType.Saloon, Class = CarClass.D },

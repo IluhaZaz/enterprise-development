@@ -35,5 +35,5 @@ public class ModelGeneration
     /// <summary>
     /// Price for rent, rubles per hour
     /// </summary>
-    public required decimal PricePerHour { get; set; } 
+    public required decimal PricePerHour { get; set; }
 }

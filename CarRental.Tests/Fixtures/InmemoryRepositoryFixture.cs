@@ -5,6 +5,9 @@ using CarRental.Infrastructure.Repositories.InMemory;
 
 namespace CarRental.Tests.Fixtures;
 
+/// <summary>
+/// Provides repositories for all entities
+/// </summary>
 public class InmemoryRepositoryFixture
 {
     public CarModelRepository CarModelRepository { get; }
@@ -13,6 +16,9 @@ public class InmemoryRepositoryFixture
     public ClientRepository ClientRepository { get; }
     public RentalLogRepository RentalLogRepository { get; }
 
+    /// <summary>
+    /// Add data to repositories from data seed
+    /// </summary>
     public void FillData()
     {
         CarRentalDataSeed data = new CarRentalDataSeed();
@@ -24,6 +30,9 @@ public class InmemoryRepositoryFixture
         FillRepository(RentalLogRepository, data.RentalLogs);
     }
 
+    /// <summary>
+    /// Fixture initializing method
+    /// </summary>
     public InmemoryRepositoryFixture()
     {
         CarModelRepository = new CarModelRepository();
@@ -35,6 +44,9 @@ public class InmemoryRepositoryFixture
         FillData();
     }
 
+    /// <summary>
+    /// Add data to repository
+    /// </summary>
     public static void FillRepository<TEntity>(IRepository<TEntity, int> repo, List<TEntity> items)
     where TEntity : class
     {

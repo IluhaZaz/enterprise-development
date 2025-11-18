@@ -5,11 +5,17 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
+/// <summary>
+/// Provide CRUD operation for ModelGeneration entity
+/// </summary>
 public class ModelGenerationService(
     IRepository<ModelGeneration, int> repository,
-    IRepository<CarModel, int> modelRepository, 
+    IRepository<CarModel, int> modelRepository,
     IMapper mapper) : IService<ModelGenerationCreate, ModelGenerationGet>
 {
+    // <summary>
+    /// Create new entity instance and return it's ID
+    /// </summary>
     public int Create(ModelGenerationCreate entity_dto)
     {
         CarModel model = modelRepository.Read(entity_dto.ModelId)
@@ -22,6 +28,9 @@ public class ModelGenerationService(
         return entity.Id;
     }
 
+    /// <summary>
+    /// Update entity's data
+    /// </summary>
     public void Update(ModelGenerationCreate entity_dto)
     {
         CarModel model = modelRepository.Read(entity_dto.ModelId)
@@ -33,17 +42,26 @@ public class ModelGenerationService(
         repository.Update(entity);
     }
 
+    /// <summary>
+    /// Delete entity by ID
+    /// </summary>
     public bool Delete(int id)
     {
         return repository.Delete(id);
     }
 
+    /// <summary>
+    /// Return all entities from storage
+    /// </summary>
     public List<ModelGenerationGet> ReadAll()
     {
         List<ModelGeneration> res = repository.ReadAll();
         return mapper.Map<List<ModelGenerationGet>>(res);
     }
 
+    /// <summary>
+    /// Return entity from storage by id
+    /// </summary>
     public ModelGenerationGet? Read(int id)
     {
         ModelGeneration? entity = repository.Read(id);

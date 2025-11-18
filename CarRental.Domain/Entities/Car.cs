@@ -20,7 +20,7 @@ public class Car
     /// <summary>
     /// Number of license plate installed on car
     /// </summary>
-    public required string LicensePlate {  get; set; }
+    public required string LicensePlate { get; set; }
 
     /// <summary>
     /// Car's color

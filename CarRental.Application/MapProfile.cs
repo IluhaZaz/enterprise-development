@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CarRental.Domain.Entities;
 using CarRental.Application.Contracts;
+using CarRental.Domain.Entities;
 
 namespace CarRental.Application;
 public class MapProfile : Profile

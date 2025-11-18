@@ -1,4 +1,3 @@
-using CarRental.Domain.Entities;
 using CarRental.Domain.TestData;
 
 namespace CarRental.Tests;
@@ -18,7 +17,7 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
     {
         var target = fixture.CarModels[1];
 
-        var expectedClientsId = new[] { 2, 6, 7};
+        var expectedClientsId = new[] { 2, 6, 7 };
 
         var actual = fixture.RentalLogs
             .Where(r => r.Car.Generation.Model.Name == target.Name)
