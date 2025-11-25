@@ -6,7 +6,7 @@ namespace CarRental.Tests;
 /// <summary>
 /// Class containing unit tests to check domain classes work properly
 /// </summary>
-public class CarRenatalRepositoryTests(InmemoryRepositoryFixture fixture) : IClassFixture<InmemoryRepositoryFixture>
+public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixture<RepositoryFixture>
 {
     /// <summary>
     /// Retrieves all clients who have rented cars of a specified model, 

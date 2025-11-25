@@ -1,17 +1,17 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
-namespace CarRental.Infrastructure.Repositories.InMemory;
+namespace CarRental.Infrastructure.Repositories;
 
 /// <summary>
-/// In memory repository for ModelGeneration entities
+/// In memory repository for CarModel entities
 /// </summary>
-public class ModelGenerationRepository : IRepository<ModelGeneration, int>
+public class CarModelRepository : IRepository<CarModel, int>
 {
     /// <summary>
     /// Storage for entities
     /// </summary>
-    private readonly List<ModelGeneration> _modelGenerations;
+    private readonly List<CarModel> _carModels;
     /// <summary>
     /// Id num for next created entity
     /// </summary>
@@ -20,19 +20,27 @@ public class ModelGenerationRepository : IRepository<ModelGeneration, int>
     /// <summary>
     /// Repository initializing method
     /// </summary>
-    public ModelGenerationRepository()
+    public CarModelRepository(List<CarModel>? models = null)
     {
-        _modelGenerations = new List<ModelGeneration>();
-        _currId = 1;
+        if (models is not null)
+        {
+            _carModels = models;
+            _currId = _carModels.Max(car => car.Id) + 1;
+        }
+        else
+        {
+            _carModels = new List<CarModel>();
+            _currId = 1;
+        }
     }
 
     /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(ModelGeneration entity)
+    public int Create(CarModel entity)
     {
         entity.Id = _currId;
-        _modelGenerations.Add(entity);
+        _carModels.Add(entity);
         _currId++;
 
         return entity.Id;
@@ -41,10 +49,10 @@ public class ModelGenerationRepository : IRepository<ModelGeneration, int>
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(ModelGeneration entity)
+    public void Update(CarModel entity)
     {
         Delete(entity.Id);
-        _modelGenerations.Add(entity);
+        _carModels.Add(entity);
     }
 
     /// <summary>
@@ -52,10 +60,10 @@ public class ModelGenerationRepository : IRepository<ModelGeneration, int>
     /// </summary>
     public bool Delete(int id)
     {
-        ModelGeneration? modelGeneration = Read(id);
-        if (modelGeneration != null)
+        CarModel? carModel = Read(id);
+        if (carModel != null)
         {
-            _modelGenerations.Remove(modelGeneration);
+            _carModels.Remove(carModel);
             return true;
         }
         return false;
@@ -64,16 +72,16 @@ public class ModelGenerationRepository : IRepository<ModelGeneration, int>
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<ModelGeneration> ReadAll()
+    public List<CarModel> ReadAll()
     {
-        return [.. _modelGenerations];
+        return [.. _carModels];
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public ModelGeneration? Read(int id)
+    public CarModel? Read(int id)
     {
-        return _modelGenerations.FirstOrDefault(c => c.Id == id);
+        return _carModels.FirstOrDefault(c => c.Id == id);
     }
 }

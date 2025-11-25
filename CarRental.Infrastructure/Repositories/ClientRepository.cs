@@ -1,7 +1,8 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+using System.Reflection;
 
-namespace CarRental.Infrastructure.Repositories.InMemory;
+namespace CarRental.Infrastructure.Repositories;
 
 /// <summary>
 /// In memory repository for Client entities
@@ -20,10 +21,18 @@ public class ClientRepository : IRepository<Client, int>
     /// <summary>
     /// Repository initializing method
     /// </summary>
-    public ClientRepository()
+    public ClientRepository(List<Client>? clients = null)
     {
-        _clients = new List<Client>();
-        _currId = 1;
+        if (clients is not null)
+        {
+            _clients = clients;
+            _currId = _clients.Max(car => car.Id) + 1;
+        }
+        else
+        {
+            _clients = new List<Client>();
+            _currId = 1;
+        }
     }
 
     /// <summary>

@@ -1,14 +1,13 @@
 ﻿using CarRental.Domain.Interfaces;
 using CarRental.Domain.TestData;
-using CarRental.Infrastructure.Repositories.InMemory;
-
+using CarRental.Infrastructure.Repositories;
 
 namespace CarRental.Tests.Fixtures;
 
 /// <summary>
 /// Provides repositories for all entities
 /// </summary>
-public class InmemoryRepositoryFixture
+public class RepositoryFixture
 {
     public CarModelRepository CarModelRepository { get; }
     public ModelGenerationRepository ModelGenerationRepository { get; }
@@ -33,7 +32,7 @@ public class InmemoryRepositoryFixture
     /// <summary>
     /// Fixture initializing method
     /// </summary>
-    public InmemoryRepositoryFixture()
+    public RepositoryFixture()
     {
         CarModelRepository = new CarModelRepository();
         ModelGenerationRepository = new ModelGenerationRepository();

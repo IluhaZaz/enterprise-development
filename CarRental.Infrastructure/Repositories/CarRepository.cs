@@ -1,17 +1,18 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+using System.Reflection;
 
-namespace CarRental.Infrastructure.Repositories.InMemory;
+namespace CarRental.Infrastructure.Repositories;
 
 /// <summary>
-/// In memory repository for RentalLog entities
+/// In memory repository for Car entities
 /// </summary>
-public class RentalLogRepository : IRepository<RentalLog, int>
+public class CarRepository : IRepository<Car, int>
 {
     /// <summary>
     /// Storage for entities
     /// </summary>
-    private readonly List<RentalLog> _rentalLogs;
+    private readonly List<Car> _cars;
     /// <summary>
     /// Id num for next created entity
     /// </summary>
@@ -20,19 +21,27 @@ public class RentalLogRepository : IRepository<RentalLog, int>
     /// <summary>
     /// Repository initializing method
     /// </summary>
-    public RentalLogRepository()
+    public CarRepository(List<Car>? cars = null)
     {
-        _rentalLogs = new List<RentalLog>();
-        _currId = 1;
+        if (cars is not null)
+        {
+            _cars = cars;
+            _currId = _cars.Max(car => car.Id) + 1;
+        }
+        else
+        {
+            _cars = new List<Car>();
+            _currId = 1;
+        }
     }
 
     /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(RentalLog entity)
+    public int Create(Car entity)
     {
         entity.Id = _currId;
-        _rentalLogs.Add(entity);
+        _cars.Add(entity);
         _currId++;
 
         return entity.Id;
@@ -41,10 +50,10 @@ public class RentalLogRepository : IRepository<RentalLog, int>
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(RentalLog entity)
+    public void Update(Car entity)
     {
         Delete(entity.Id);
-        _rentalLogs.Add(entity);
+        _cars.Add(entity);
     }
 
     /// <summary>
@@ -52,10 +61,10 @@ public class RentalLogRepository : IRepository<RentalLog, int>
     /// </summary>
     public bool Delete(int id)
     {
-        RentalLog? rentalLog = Read(id);
-        if (rentalLog != null)
+        Car? car = Read(id);
+        if (car != null)
         {
-            _rentalLogs.Remove(rentalLog);
+            _cars.Remove(car);
             return true;
         }
         return false;
@@ -64,16 +73,16 @@ public class RentalLogRepository : IRepository<RentalLog, int>
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<RentalLog> ReadAll()
+    public List<Car> ReadAll()
     {
-        return [.. _rentalLogs];
+        return [.. _cars];
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public RentalLog? Read(int id)
+    public Car? Read(int id)
     {
-        return _rentalLogs.FirstOrDefault(c => c.Id == id);
+        return _cars.FirstOrDefault(c => c.Id == id);
     }
 }

@@ -5,7 +5,8 @@ using CarRental.Application.Interfaces;
 using CarRental.Application.Services;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using CarRental.Infrastructure.Repositories.InMemory;
+using CarRental.Domain.TestData;
+using CarRental.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,11 +19,13 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSingleton<IRepository<CarModel, int>, CarModelRepository>();
-builder.Services.AddSingleton<IRepository<ModelGeneration, int>, ModelGenerationRepository>();
-builder.Services.AddSingleton<IRepository<Car, int>, CarRepository>();
-builder.Services.AddSingleton<IRepository<Client, int>, ClientRepository>();
-builder.Services.AddSingleton<IRepository<RentalLog, int>, RentalLogRepository>();
+CarRentalDataSeed data = new CarRentalDataSeed();
+
+builder.Services.AddSingleton<IRepository<CarModel, int>, CarModelRepository>(_ =>new CarModelRepository(data.CarModels));
+builder.Services.AddSingleton<IRepository<ModelGeneration, int>, ModelGenerationRepository>(_ => new ModelGenerationRepository(data.ModelGenerations));
+builder.Services.AddSingleton<IRepository<Car, int>, CarRepository>(_ => new CarRepository(data.Cars));
+builder.Services.AddSingleton<IRepository<Client, int>, ClientRepository>(_ => new ClientRepository(data.Clients));
+builder.Services.AddSingleton<IRepository<RentalLog, int>, RentalLogRepository>(_ => new RentalLogRepository(data.RentalLogs));
 
 builder.Services.AddScoped<IService<CarModelCreate, CarModelGet>, CarModelService>();
 builder.Services.AddScoped<IService<ModelGenerationCreate, ModelGenerationGet>, ModelGenerationService>();
