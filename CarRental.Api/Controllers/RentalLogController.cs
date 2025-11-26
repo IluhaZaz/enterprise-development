@@ -12,6 +12,9 @@ namespace CarRental.Api.Controllers;
 public class RentalLogController(RentalLogService service, ILogger<RentalLogController> logger)
     : BaseController<RentalLogCreate, RentalLogGet>(service, logger)
 {
+    /// <summary>
+    /// Return linked Client's DTO
+    /// </summary>
     [HttpGet("{id}/client")]
     public ActionResult<ClientGet?> GetClient(int id)
         => Log(() =>
@@ -24,6 +27,9 @@ public class RentalLogController(RentalLogService service, ILogger<RentalLogCont
             return NotFound();
         });
 
+    /// <summary>
+    /// Return linked Car's DTO
+    /// </summary>
     [HttpGet("{id}/car")]
     public ActionResult<CarGet?> GetCar(int id)
         => Log(() =>

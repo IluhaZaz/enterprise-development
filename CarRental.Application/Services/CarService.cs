@@ -68,6 +68,9 @@ public class CarService(
         return mapper.Map<CarGet>(entity);
     }
 
+    /// <summary>
+    /// Return linked ModelGenerations's DTO
+    /// </summary>
     public ModelGenerationGet? GetModelGeneration(int carId)
     {
         Car? car = repository.Read(carId);

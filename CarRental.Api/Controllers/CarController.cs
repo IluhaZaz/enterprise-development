@@ -12,6 +12,9 @@ namespace CarRental.Api.Controllers;
 public class CarController(CarService service, ILogger<CarController> logger)
     : BaseController<CarCreate, CarGet>(service, logger)
 {
+    /// <summary>
+    /// Return linked ModelGeneration's DTO
+    /// </summary>
     [HttpGet("{id}/generation")]
     public ActionResult<CarGet?> GetGeneration(int id)
         => Log(() =>

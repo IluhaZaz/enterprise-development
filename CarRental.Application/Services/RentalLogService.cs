@@ -75,6 +75,9 @@ public class RentalLogService(
         return mapper.Map<RentalLogGet>(entity);
     }
 
+    /// <summary>
+    /// Return linked Car's DTO
+    /// </summary>
     public CarGet? GetCar(int logId)
     {
         RentalLog? log = repository.Read(logId);
@@ -83,6 +86,9 @@ public class RentalLogService(
         return null;
     }
 
+    /// <summary>
+    /// Return linked Clients's DTO
+    /// </summary>
     public ClientGet? GetClient(int logId)
     {
         RentalLog? log = repository.Read(logId);
