@@ -67,4 +67,12 @@ public class CarService(
         Car? entity = repository.Read(id);
         return mapper.Map<CarGet>(entity);
     }
+
+    public ModelGenerationGet? GetModelGeneration(int carId)
+    {
+        Car? car = repository.Read(carId);
+        if (car != null)
+            return mapper.Map<ModelGenerationGet>(car.Generation);
+        return null;
+    }
 }

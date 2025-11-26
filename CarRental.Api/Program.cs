@@ -21,17 +21,17 @@ builder.Services.AddEndpointsApiExplorer();
 
 CarRentalDataSeed data = new CarRentalDataSeed();
 
-builder.Services.AddSingleton<IRepository<CarModel, int>, CarModelRepository>(_ =>new CarModelRepository(data.CarModels));
+builder.Services.AddSingleton<IRepository<CarModel, int>, CarModelRepository>(_ => new CarModelRepository(data.CarModels));
 builder.Services.AddSingleton<IRepository<ModelGeneration, int>, ModelGenerationRepository>(_ => new ModelGenerationRepository(data.ModelGenerations));
 builder.Services.AddSingleton<IRepository<Car, int>, CarRepository>(_ => new CarRepository(data.Cars));
 builder.Services.AddSingleton<IRepository<Client, int>, ClientRepository>(_ => new ClientRepository(data.Clients));
 builder.Services.AddSingleton<IRepository<RentalLog, int>, RentalLogRepository>(_ => new RentalLogRepository(data.RentalLogs));
 
 builder.Services.AddScoped<IService<CarModelCreate, CarModelGet>, CarModelService>();
-builder.Services.AddScoped<IService<ModelGenerationCreate, ModelGenerationGet>, ModelGenerationService>();
-builder.Services.AddScoped<IService<CarCreate, CarGet>, CarService>();
+builder.Services.AddScoped<ModelGenerationService>();
+builder.Services.AddScoped<CarService>();
 builder.Services.AddScoped<IService<ClientCreate, ClientGet>, ClientService>();
-builder.Services.AddScoped<IService<RentalLogCreate, RentalLogGet>, RentalLogService>();
+builder.Services.AddScoped<RentalLogService>();
 
 builder.Services.AddSwaggerGen(c =>
 {

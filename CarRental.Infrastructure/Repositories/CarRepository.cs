@@ -1,6 +1,5 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using System.Reflection;
 
 namespace CarRental.Infrastructure.Repositories;
 

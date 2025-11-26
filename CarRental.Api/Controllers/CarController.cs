@@ -1,5 +1,5 @@
 ﻿using CarRental.Application.Contracts;
-using CarRental.Application.Interfaces;
+using CarRental.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Api.Controllers;
@@ -9,5 +9,18 @@ namespace CarRental.Api.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public class CarController(IService<CarCreate, CarGet> service, ILogger<CarController> logger)
-    : BaseController<CarCreate, CarGet>(service, logger);
+public class CarController(CarService service, ILogger<CarController> logger)
+    : BaseController<CarCreate, CarGet>(service, logger)
+{
+    [HttpGet("{id}/generation")]
+    public ActionResult<CarGet?> GetGeneration(int id)
+        => Log(() =>
+        {
+            ModelGenerationGet? result = service.GetModelGeneration(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        });
+}

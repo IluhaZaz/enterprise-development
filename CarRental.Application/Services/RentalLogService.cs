@@ -74,4 +74,20 @@ public class RentalLogService(
         RentalLog? entity = repository.Read(id);
         return mapper.Map<RentalLogGet>(entity);
     }
+
+    public CarGet? GetCar(int logId)
+    {
+        RentalLog? log = repository.Read(logId);
+        if (log != null)
+            return mapper.Map<CarGet>(log.Car);
+        return null;
+    }
+
+    public ClientGet? GetClient(int logId)
+    {
+        RentalLog? log = repository.Read(logId);
+        if (log != null)
+            return mapper.Map<ClientGet>(log.Client);
+        return null;
+    }
 }
