@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using CarRental.Domain.DataSeed;
 using CarRental.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -9,7 +10,7 @@ namespace CarRental.Infrastructure.EfCore;
 /// Entity Framework Core DbContext for CarRental application
 /// Configures entity mappings, constraints, relations and type conversions
 /// </summary>
-public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
+public class CarRentalDbContext(DbContextOptions options, CarRentalDataSeed dataSeed) : DbContext(options)
 {
     /// <summary>
     /// Cars table set
@@ -67,6 +68,8 @@ public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
             e.Property(x => x.Class);
 
             e.HasIndex(x => x.Name);
+
+            e.HasData(dataSeed.CarModels);
         });
 
         modelBuilder.Entity<ModelGeneration>(e =>
@@ -94,6 +97,8 @@ public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
                 .OnDelete(DeleteBehavior.Restrict);
 
             e.HasIndex(x => x.ModelId);
+
+            e.HasData(dataSeed.ModelGenerations);
         });
 
         modelBuilder.Entity<Car>(e =>
@@ -121,6 +126,8 @@ public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
 
             e.HasIndex(x => x.LicensePlate);
             e.HasIndex(x => x.GenerationId);
+
+            e.HasData(dataSeed.Cars);
         });
 
         modelBuilder.Entity<Client>(e =>
@@ -148,6 +155,8 @@ public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
             e.Property(x => x.DriverLicense)
                 .IsRequired()
                 .HasMaxLength(32);
+
+            e.HasData(dataSeed.Clients);
         });
 
         modelBuilder.Entity<RentalLog>(e =>
@@ -180,6 +189,8 @@ public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
 
             e.HasIndex(x => x.CarId);
             e.HasIndex(x => x.ClientId);
+
+            e.HasData(dataSeed.RentalLogs);
         });
     }
 }

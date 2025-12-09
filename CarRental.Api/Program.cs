@@ -6,7 +6,9 @@ using CarRental.Application.Services;
 using CarRental.Domain.DataSeed;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using CarRental.Infrastructure.InMemory.Repositories;
+using CarRental.Infrastructure.EfCore;
+using CarRental.Infrastructure.EfCore.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,13 +21,13 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-var data = new CarRentalDataSeed();
+builder.Services.AddSingleton<CarRentalDataSeed>();
 
-builder.Services.AddSingleton<IRepository<CarModel, int>, CarModelRepository>(_ => new CarModelRepository(data.CarModels));
-builder.Services.AddSingleton<IRepository<ModelGeneration, int>, ModelGenerationRepository>(_ => new ModelGenerationRepository(data.ModelGenerations));
-builder.Services.AddSingleton<IRepository<Car, int>, CarRepository>(_ => new CarRepository(data.Cars));
-builder.Services.AddSingleton<IRepository<Client, int>, ClientRepository>(_ => new ClientRepository(data.Clients));
-builder.Services.AddSingleton<IRepository<RentalLog, int>, RentalLogRepository>(_ => new RentalLogRepository(data.RentalLogs));
+builder.Services.AddTransient<IRepository<CarModel, int>, CarModelEfCoreRepository>();
+builder.Services.AddTransient<IRepository<ModelGeneration, int>, ModelGenerationEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Car, int>, CarEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Client, int>, ClientEfCoreRepository>();
+builder.Services.AddTransient<IRepository<RentalLog, int>, RentalLogEfCoreRepository>();
 
 builder.Services.AddScoped<IService<CarModelCreate, CarModelGet>, CarModelService>();
 builder.Services.AddScoped<ModelGenerationService>();
@@ -35,11 +37,29 @@ builder.Services.AddScoped<RentalLogService>();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
+    var assemblies = AppDomain.CurrentDomain.GetAssemblies()
+        .Where(a => a.GetName().Name!.StartsWith("CarRental"))
+        .Distinct();
+
+    foreach (var assembly in assemblies)
+    {
+        var xmlFile = $"{assembly.GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        if (File.Exists(xmlPath))
+            c.IncludeXmlComments(xmlPath);
+    }
 });
+
+builder.AddNpgsqlDbContext<CarRentalDbContext>("Database");
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<CarRentalDbContext>();
+
+    await context.Database.MigrateAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {
