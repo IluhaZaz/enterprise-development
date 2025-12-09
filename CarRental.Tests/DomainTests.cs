@@ -19,14 +19,14 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
         var expectedClientsId = new[] { 2, 6, 7 };
 
         var actual = fixture.RentalLogs
-            .Where(r => r.Car.Generation.Model.Name == target.Name)
+            .Where(r => r.Car!.Generation!.Model!.Name == target.Name)
             .Select(r => r.Client)
             .Distinct()
-            .OrderBy(c => c.LastName)
-            .ThenBy(c => c.FirstName)
-            .ThenBy(c => c.Patronymic)
+            .OrderBy(c => c!.LastName)
+            .ThenBy(c => c!.FirstName)
+            .ThenBy(c => c!.Patronymic)
             .ToList()
-            .Select(c => c.Id);
+            .Select(c => c!.Id);
         Assert.Equal(expectedClientsId, actual);
     }
 
@@ -43,7 +43,7 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
 
         var actual = fixture.RentalLogs
             .Where(r => r.RentStartDate <= currentTime && currentTime <= r.RentStartDate.AddHours((double)r.Duration))
-            .Select(r => r.Car.Id);
+            .Select(r => r.CarId);
         Assert.Equal(expectedCarsId, actual);
     }
 
@@ -60,7 +60,7 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
             .Select(g => new { Car = g.Key, Count = g.Count() })
             .OrderByDescending(x => x.Count)
             .Take(5)
-            .Select(x => x.Car.Id)
+            .Select(x => x.Car!.Id)
             .ToList();
         Assert.Equal(expectedCarsId, actual);
     }
@@ -87,8 +87,8 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
         var actual = fixture.RentalLogs
             .GroupBy(r => r.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
-            .OrderBy(c => c.Car.Id)
-            .ToDictionary(g => g.Car.Id, g => g.Count);
+            .OrderBy(c => c.Car!.Id)
+            .ToDictionary(g => g.Car!.Id, g => g.Count);
 
         Assert.Equal(expectedResult, actual);
     }
@@ -107,11 +107,11 @@ public class CarRenatalDomainTests(CarRentalDataSeed fixture) : IClassFixture<Ca
         .Select(g => new
         {
             Client = g.Key,
-            TotalAmount = g.Sum(r => (decimal)r.Duration * r.Car.Generation.PricePerHour)
+            TotalAmount = g.Sum(r => (decimal)r.Duration * r.Car!.Generation!.PricePerHour)
         })
         .OrderByDescending(x => x.TotalAmount)
         .Take(5)
-        .Select(c => c.Client.Id)
+        .Select(c => c.Client!.Id)
         .ToList();
 
         Assert.Equal(actual, expectedClientsId);

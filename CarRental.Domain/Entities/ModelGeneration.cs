@@ -23,9 +23,14 @@ public class ModelGeneration
     public double? EngineVolume { get; set; }
 
     /// <summary>
+    /// FK to car model
+    /// </summary>
+    public required int ModelId { get; set; }
+
+    /// <summary>
     /// Reference to car's model
     /// </summary>
-    public required CarModel Model { get; set; }
+    public CarModel? Model { get; set; }
 
     /// <summary>
     /// Type of model's transmission  type

@@ -11,14 +11,24 @@ public class RentalLog
     public required int Id { get; set; }
 
     /// <summary>
+    /// FK to rented car
+    /// </summary>
+    public required int CarId { get; set; }
+
+    /// <summary>
     /// Reference to rented car
     /// </summary>
-    public required Car Car { get; set; }
+    public Car? Car { get; set; }
+
+    /// <summary>
+    /// FK to client
+    /// </summary>
+    public required int ClientId { get; set; }
 
     /// <summary>
     /// Reference to person who rented car
     /// </summary>
-    public required Client Client { get; set; }
+    public Client? Client { get; set; }
 
     /// <summary>
     /// Start date of rent

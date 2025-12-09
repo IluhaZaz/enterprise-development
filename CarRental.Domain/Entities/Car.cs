@@ -13,9 +13,14 @@ public class Car
     public required int Id { get; set; }
 
     /// <summary>
+    /// FK to model generation
+    /// </summary>
+    public required int GenerationId { get; set; }
+
+    /// <summary>
     /// Represents car's model generation
     /// </summary>
-    public required ModelGeneration Generation { get; set; }
+    public ModelGeneration? Generation { get; set; }
 
     /// <summary>
     /// Number of license plate installed on car
