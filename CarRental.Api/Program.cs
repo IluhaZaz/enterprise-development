@@ -9,8 +9,11 @@ using CarRental.Domain.Interfaces;
 using CarRental.Infrastructure.EfCore;
 using CarRental.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 var mapperConfig = new MapperConfiguration(
     config => config.AddProfile(new MapProfile()),
@@ -18,7 +21,10 @@ var mapperConfig = new MapperConfiguration(
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(o =>
+{
+    o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<CarRentalDataSeed>();
@@ -60,6 +66,8 @@ using (var scope = app.Services.CreateScope())
 
     await context.Database.MigrateAsync();
 }
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {

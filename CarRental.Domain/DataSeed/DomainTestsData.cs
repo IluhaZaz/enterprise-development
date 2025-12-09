@@ -97,46 +97,46 @@ public class CarRentalDataSeed
         RentalLogs =
         [
             // Toyota Camry (most popular)
-            new RentalLog { Id = 1, CarId = Cars[0].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 1, 10, 10, 0, 0), Duration = 24 },
-            new RentalLog { Id = 2, CarId = Cars[0].Id, ClientId = Clients[1].Id, RentStartDate = new DateTime(2024, 1, 15, 14, 0, 0), Duration = 48 },
-            new RentalLog { Id = 3, CarId = Cars[0].Id, ClientId = Clients[2].Id, RentStartDate = new DateTime(2024, 2, 1, 9, 0, 0), Duration = 12 },
-            new RentalLog { Id = 4, CarId = Cars[1].Id, ClientId = Clients[3].Id, RentStartDate = new DateTime(2024, 1, 20, 16, 0, 0), Duration = 72 },
-            new RentalLog { Id = 5, CarId = Cars[1].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 2, 5, 11, 0, 0), Duration = 24 },
-            new RentalLog { Id = 6, CarId = Cars[2].Id, ClientId = Clients[4].Id, RentStartDate = new DateTime(2024, 1, 25, 8, 0, 0), Duration = 36 },
+            new RentalLog { Id = 1, CarId = Cars[0].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 1, 10, 10, 0, 0, DateTimeKind.Utc), Duration = 24 },
+            new RentalLog { Id = 2, CarId = Cars[0].Id, ClientId = Clients[1].Id, RentStartDate = new DateTime(2024, 1, 15, 14, 0, 0, DateTimeKind.Utc), Duration = 48 },
+            new RentalLog { Id = 3, CarId = Cars[0].Id, ClientId = Clients[2].Id, RentStartDate = new DateTime(2024, 2, 1, 9, 0, 0, DateTimeKind.Utc), Duration = 12 },
+            new RentalLog { Id = 4, CarId = Cars[1].Id, ClientId = Clients[3].Id, RentStartDate = new DateTime(2024, 1, 20, 16, 0, 0, DateTimeKind.Utc), Duration = 72 },
+            new RentalLog { Id = 5, CarId = Cars[1].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 2, 5, 11, 0, 0, DateTimeKind.Utc), Duration = 24 },
+            new RentalLog { Id = 6, CarId = Cars[2].Id, ClientId = Clients[4].Id, RentStartDate = new DateTime(2024, 1, 25, 8, 0, 0, DateTimeKind.Utc), Duration = 36 },
 
             // BMW X5
-            new RentalLog { Id = 7, CarId = Cars[3].Id, ClientId = Clients[5].Id, RentStartDate = new DateTime(2024, 2, 10, 13, 0, 0), Duration = 24 },
-            new RentalLog { Id = 8, CarId = Cars[3].Id, ClientId = Clients[1].Id, RentStartDate = new DateTime(2024, 2, 12, 10, 0, 0), Duration = 48 },
-            new RentalLog { Id = 9, CarId = Cars[4].Id, ClientId = Clients[6].Id, RentStartDate = new DateTime(2024, 1, 30, 15, 0, 0), Duration = 12 },
+            new RentalLog { Id = 7, CarId = Cars[3].Id, ClientId = Clients[5].Id, RentStartDate = new DateTime(2024, 2, 10, 13, 0, 0, DateTimeKind.Utc), Duration = 24 },
+            new RentalLog { Id = 8, CarId = Cars[3].Id, ClientId = Clients[1].Id, RentStartDate = new DateTime(2024, 2, 12, 10, 0, 0, DateTimeKind.Utc), Duration = 48 },
+            new RentalLog { Id = 9, CarId = Cars[4].Id, ClientId = Clients[6].Id, RentStartDate = new DateTime(2024, 1, 30, 15, 0, 0, DateTimeKind.Utc), Duration = 12 },
 
             // Lada Vesta
-            new RentalLog { Id = 10, CarId = Cars[5].Id, ClientId = Clients[7].Id, RentStartDate = new DateTime(2024, 2, 3, 14, 0, 0), Duration = 60 },
-            new RentalLog { Id = 11, CarId = Cars[6].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 2, 7, 16, 0, 0), Duration = 18 },
+            new RentalLog { Id = 10, CarId = Cars[5].Id, ClientId = Clients[7].Id, RentStartDate = new DateTime(2024, 2, 3, 14, 0, 0, DateTimeKind.Utc), Duration = 60 },
+            new RentalLog { Id = 11, CarId = Cars[6].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 2, 7, 16, 0, 0, DateTimeKind.Utc), Duration = 18 },
 
             // Kia Rio
-            new RentalLog { Id = 12, CarId = Cars[7].Id, ClientId = Clients[3].Id, RentStartDate = new DateTime(2024, 2, 9, 11, 0, 0), Duration = 24 },
+            new RentalLog { Id = 12, CarId = Cars[7].Id, ClientId = Clients[3].Id, RentStartDate = new DateTime(2024, 2, 9, 11, 0, 0, DateTimeKind.Utc), Duration = 24 },
 
             // Mercedes S-Class
-            new RentalLog { Id = 13, CarId = Cars[8].Id, ClientId = Clients[4].Id, RentStartDate = new DateTime(2024, 2, 11, 10, 0, 0), Duration = 36 },
-            new RentalLog { Id = 14, CarId = Cars[9].Id, ClientId = Clients[5].Id, RentStartDate = new DateTime(2024, 2, 13, 12, 0, 0), Duration = 48 },
+            new RentalLog { Id = 13, CarId = Cars[8].Id, ClientId = Clients[4].Id, RentStartDate = new DateTime(2024, 2, 11, 10, 0, 0, DateTimeKind.Utc), Duration = 36 },
+            new RentalLog { Id = 14, CarId = Cars[9].Id, ClientId = Clients[5].Id, RentStartDate = new DateTime(2024, 2, 13, 12, 0, 0, DateTimeKind.Utc), Duration = 48 },
 
             // Volkswagen Polo
-            new RentalLog { Id = 15, CarId = Cars[10].Id, ClientId = Clients[6].Id, RentStartDate = new DateTime(2024, 2, 14, 8, 0, 0), Duration = 24 },
-            new RentalLog { Id = 16, CarId = Cars[13].Id, ClientId = Clients[7].Id, RentStartDate = new DateTime(2024, 2, 15, 14, 0, 0), Duration = 12 },
+            new RentalLog { Id = 15, CarId = Cars[10].Id, ClientId = Clients[6].Id, RentStartDate = new DateTime(2024, 2, 14, 8, 0, 0, DateTimeKind.Utc), Duration = 24 },
+            new RentalLog { Id = 16, CarId = Cars[13].Id, ClientId = Clients[7].Id, RentStartDate = new DateTime(2024, 2, 15, 14, 0, 0, DateTimeKind.Utc), Duration = 12 },
 
             // Hyundai Creta
-            new RentalLog { Id = 17, CarId = Cars[11].Id, ClientId = Clients[8].Id, RentStartDate = new DateTime(2024, 2, 16, 9, 0, 0), Duration = 48 },
+            new RentalLog { Id = 17, CarId = Cars[11].Id, ClientId = Clients[8].Id, RentStartDate = new DateTime(2024, 2, 16, 9, 0, 0, DateTimeKind.Utc), Duration = 48 },
 
             // Skoda Octavia
-            new RentalLog { Id = 18, CarId = Cars[12].Id, ClientId = Clients[9].Id, RentStartDate = new DateTime(2024, 2, 17, 16, 0, 0), Duration = 24 },
+            new RentalLog { Id = 18, CarId = Cars[12].Id, ClientId = Clients[9].Id, RentStartDate = new DateTime(2024, 2, 17, 16, 0, 0, DateTimeKind.Utc), Duration = 24 },
 
             // Other rents for statistics
-            new RentalLog { Id = 19, CarId = Cars[0].Id, ClientId = Clients[2].Id, RentStartDate = new DateTime(2024, 2, 18, 11, 0, 0), Duration = 36 },
-            new RentalLog { Id = 20, CarId = Cars[1].Id, ClientId = Clients[4].Id, RentStartDate = new DateTime(2024, 2, 19, 13, 0, 0), Duration = 24 },
-            new RentalLog { Id = 21, CarId = Cars[3].Id, ClientId = Clients[6].Id, RentStartDate = new DateTime(2024, 2, 20, 10, 0, 0), Duration = 18 },
-            new RentalLog { Id = 22, CarId = Cars[5].Id, ClientId = Clients[8].Id, RentStartDate = new DateTime(2024, 2, 21, 15, 0, 0), Duration = 72 },
-            new RentalLog { Id = 23, CarId = Cars[8].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 2, 22, 12, 0, 0), Duration = 24 },
-            new RentalLog { Id = 24, CarId = Cars[10].Id, ClientId = Clients[1].Id, RentStartDate = new DateTime(2024, 2, 23, 9, 0, 0), Duration = 36 }
+            new RentalLog { Id = 19, CarId = Cars[0].Id, ClientId = Clients[2].Id, RentStartDate = new DateTime(2024, 2, 18, 11, 0, 0, DateTimeKind.Utc), Duration = 36 },
+            new RentalLog { Id = 20, CarId = Cars[1].Id, ClientId = Clients[4].Id, RentStartDate = new DateTime(2024, 2, 19, 13, 0, 0, DateTimeKind.Utc), Duration = 24 },
+            new RentalLog { Id = 21, CarId = Cars[3].Id, ClientId = Clients[6].Id, RentStartDate = new DateTime(2024, 2, 20, 10, 0, 0, DateTimeKind.Utc), Duration = 18 },
+            new RentalLog { Id = 22, CarId = Cars[5].Id, ClientId = Clients[8].Id, RentStartDate = new DateTime(2024, 2, 21, 15, 0, 0, DateTimeKind.Utc), Duration = 72 },
+            new RentalLog { Id = 23, CarId = Cars[8].Id, ClientId = Clients[0].Id, RentStartDate = new DateTime(2024, 2, 22, 12, 0, 0, DateTimeKind.Utc), Duration = 24 },
+            new RentalLog { Id = 24, CarId = Cars[10].Id, ClientId = Clients[1].Id, RentStartDate = new DateTime(2024, 2, 23, 9, 0, 0, DateTimeKind.Utc), Duration = 36 }
         ];
     }
 }

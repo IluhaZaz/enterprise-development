@@ -20,7 +20,7 @@ public class RepositoryFixture
     /// </summary>
     public void FillData()
     {
-        CarRentalDataSeed data = new CarRentalDataSeed();
+        var data = new CarRentalDataSeed();
 
         FillRepository(CarModelRepository, data.CarModels);
         FillRepository(ModelGenerationRepository, data.ModelGenerations);

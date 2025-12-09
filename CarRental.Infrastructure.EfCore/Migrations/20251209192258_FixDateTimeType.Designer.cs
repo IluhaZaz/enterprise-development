@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CarRental.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(CarRentalDbContext))]
-    [Migration("20251209182054_Initial")]
-    partial class Initial
+    [Migration("20251209192258_FixDateTimeType")]
+    partial class FixDateTimeType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -546,7 +546,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 1,
                             ClientId = 1,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 1, 10, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 1, 10, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -554,7 +554,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 1,
                             ClientId = 2,
                             Duration = 48.0,
-                            RentStartDate = new DateTime(2024, 1, 15, 14, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 1, 15, 14, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -562,7 +562,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 1,
                             ClientId = 3,
                             Duration = 12.0,
-                            RentStartDate = new DateTime(2024, 2, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 1, 9, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -570,7 +570,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 2,
                             ClientId = 4,
                             Duration = 72.0,
-                            RentStartDate = new DateTime(2024, 1, 20, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 1, 20, 16, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -578,7 +578,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 2,
                             ClientId = 1,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 5, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 5, 11, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -586,7 +586,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 3,
                             ClientId = 5,
                             Duration = 36.0,
-                            RentStartDate = new DateTime(2024, 1, 25, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 1, 25, 8, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -594,7 +594,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 4,
                             ClientId = 6,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 10, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 10, 13, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -602,7 +602,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 4,
                             ClientId = 2,
                             Duration = 48.0,
-                            RentStartDate = new DateTime(2024, 2, 12, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 12, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -610,7 +610,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 5,
                             ClientId = 7,
                             Duration = 12.0,
-                            RentStartDate = new DateTime(2024, 1, 30, 15, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 1, 30, 15, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -618,7 +618,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 6,
                             ClientId = 8,
                             Duration = 60.0,
-                            RentStartDate = new DateTime(2024, 2, 3, 14, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 3, 14, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -626,7 +626,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 7,
                             ClientId = 1,
                             Duration = 18.0,
-                            RentStartDate = new DateTime(2024, 2, 7, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 7, 16, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -634,7 +634,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 8,
                             ClientId = 4,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 9, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 9, 11, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -642,7 +642,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 9,
                             ClientId = 5,
                             Duration = 36.0,
-                            RentStartDate = new DateTime(2024, 2, 11, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 11, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -650,7 +650,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 10,
                             ClientId = 6,
                             Duration = 48.0,
-                            RentStartDate = new DateTime(2024, 2, 13, 12, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 13, 12, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -658,7 +658,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 11,
                             ClientId = 7,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 14, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 14, 8, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -666,7 +666,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 14,
                             ClientId = 8,
                             Duration = 12.0,
-                            RentStartDate = new DateTime(2024, 2, 15, 14, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 15, 14, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -674,7 +674,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 12,
                             ClientId = 9,
                             Duration = 48.0,
-                            RentStartDate = new DateTime(2024, 2, 16, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 16, 9, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -682,7 +682,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 13,
                             ClientId = 10,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 17, 16, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -690,7 +690,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 1,
                             ClientId = 3,
                             Duration = 36.0,
-                            RentStartDate = new DateTime(2024, 2, 18, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 18, 11, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -698,7 +698,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 2,
                             ClientId = 5,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 19, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 19, 13, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -706,7 +706,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 4,
                             ClientId = 7,
                             Duration = 18.0,
-                            RentStartDate = new DateTime(2024, 2, 20, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 20, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -714,7 +714,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 6,
                             ClientId = 9,
                             Duration = 72.0,
-                            RentStartDate = new DateTime(2024, 2, 21, 15, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 21, 15, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -722,7 +722,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 9,
                             ClientId = 1,
                             Duration = 24.0,
-                            RentStartDate = new DateTime(2024, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 22, 12, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -730,7 +730,7 @@ namespace CarRental.Infrastructure.EfCore.Migrations
                             CarId = 11,
                             ClientId = 2,
                             Duration = 36.0,
-                            RentStartDate = new DateTime(2024, 2, 23, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                            RentStartDate = new DateTime(2024, 2, 23, 9, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 

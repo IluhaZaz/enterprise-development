@@ -40,7 +40,7 @@ public class CarEfCoreRepository(CarRentalDbContext context) : IRepository<Car, 
     public async Task<Car?> Read(int entityId) =>
         await context.Cars
             .Include(c => c.Generation)
-                .ThenInclude(g => g.Model)
+                .ThenInclude(g => g!.Model)
             .FirstOrDefaultAsync(e => e.Id == entityId);
 
     /// <summary>
@@ -49,7 +49,7 @@ public class CarEfCoreRepository(CarRentalDbContext context) : IRepository<Car, 
     public async Task<List<Car>> ReadAll() =>
         await context.Cars
             .Include(c => c.Generation)
-                .ThenInclude(g => g.Model)
+                .ThenInclude(g => g!.Model)
             .ToListAsync();
 
     /// <summary>

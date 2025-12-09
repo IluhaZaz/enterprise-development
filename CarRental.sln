@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Api", "CarRental.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Infrastructure.EfCore", "CarRental.Infrastructure.EfCore\CarRental.Infrastructure.EfCore.csproj", "{DC62F34B-14BE-4019-A69C-736D4563ED41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.AppHost", "CarRental.AppHost\CarRental.AppHost.csproj", "{0C14BF27-ACC6-4806-A374-27A9F167E8BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.ServiceDefaults", "CarRental.ServiceDefaults\CarRental.ServiceDefaults.csproj", "{5D2BF94D-59D5-96DD-67AA-FD337168498F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +58,14 @@ Global
 		{DC62F34B-14BE-4019-A69C-736D4563ED41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC62F34B-14BE-4019-A69C-736D4563ED41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC62F34B-14BE-4019-A69C-736D4563ED41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C14BF27-ACC6-4806-A374-27A9F167E8BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C14BF27-ACC6-4806-A374-27A9F167E8BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C14BF27-ACC6-4806-A374-27A9F167E8BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C14BF27-ACC6-4806-A374-27A9F167E8BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2BF94D-59D5-96DD-67AA-FD337168498F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2BF94D-59D5-96DD-67AA-FD337168498F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2BF94D-59D5-96DD-67AA-FD337168498F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2BF94D-59D5-96DD-67AA-FD337168498F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
