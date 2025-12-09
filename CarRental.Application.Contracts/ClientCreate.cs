@@ -30,8 +30,3 @@ public class ClientCreate
     /// </summary>
     public required string DriverLicense { get; set; }
 }
-
-
-/// <summary>
-/// DTO for getting Client object
-/// </summary>

@@ -35,18 +35,19 @@ public class RentalLogService(
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(RentalLogCreate entity_dto)
+    public void Update(RentalLogCreate entity_dto, int rental_id)
     {
         Car car = carRepository.Read(entity_dto.CarId)
              ?? throw new KeyNotFoundException($"Car(id={entity_dto.CarId}) does not exist");
         Client client = clientRepository.Read(entity_dto.ClientId)
              ?? throw new KeyNotFoundException($"Client(id={entity_dto.ClientId}) does not exist");
 
-        RentalLog entity = mapper.Map<RentalLog>(entity_dto);
-        entity.Car = car;
-        entity.Client = client;
+        var existing = repository.Read(rental_id)
+            ?? throw new KeyNotFoundException($"RentalLog(id={rental_id}) does not exist");
 
-        repository.Update(entity);
+        mapper.Map(entity_dto, existing);
+
+        repository.Update(existing);
     }
 
     /// <summary>

@@ -31,15 +31,17 @@ public class CarService(
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(CarCreate entity_dto)
+    public void Update(CarCreate entity_dto, int car_id)
     {
         ModelGeneration generation = generationRepository.Read(entity_dto.GenerationId)
              ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
 
-        Car entity = mapper.Map<Car>(entity_dto);
-        entity.Generation = generation;
+        var existing = repository.Read(car_id)
+            ?? throw new KeyNotFoundException($"Car(id={car_id}) does not exist");
 
-        repository.Update(entity);
+        mapper.Map(entity_dto, existing);
+
+        repository.Update(existing);
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ public interface IService<TEntityCreateDTO, TEntityGetDTO>
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(TEntityCreateDTO entity_dto);
+    public void Update(TEntityCreateDTO entity_dto, int entity_id);
 
     /// <summary>
     /// Delete entity by ID

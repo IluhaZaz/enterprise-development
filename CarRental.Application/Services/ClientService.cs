@@ -23,10 +23,14 @@ public class ClientService(IRepository<Client, int> repository, IMapper mapper) 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(ClientCreate entity_dto)
+    public void Update(ClientCreate entity_dto, int client_id)
     {
-        Client entity = mapper.Map<Client>(entity_dto);
-        repository.Update(entity);
+        var existing = repository.Read(client_id)
+            ?? throw new KeyNotFoundException($"Client(id={client_id}) does not exist");
+
+        mapper.Map(entity_dto, existing);
+
+        repository.Update(existing);
     }
 
     /// <summary>

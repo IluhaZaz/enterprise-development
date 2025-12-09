@@ -37,12 +37,12 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
     /// Api method for updating entity data
     /// </summary>
     [HttpPut("{id}")]
-    public ActionResult Update([FromBody] TEntityCreateDTO entity_dto)
+    public ActionResult Update(int id, [FromBody] TEntityCreateDTO entity_dto)
         => Log(() =>
         {
             try
             {
-                service.Update(entity_dto);
+                service.Update(entity_dto, id);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -105,6 +105,12 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
         {
             result = action();
             code = 200;
+        }
+        catch (KeyNotFoundException ex)
+        {
+            logger.LogError(ex, $"KeyNotFoundException for {method} {route}");
+            result = StatusCode(404, $"{ex.Message}\n{ex.InnerException?.Message}");
+            code = 404;
         }
         catch (Exception ex)
         {

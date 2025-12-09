@@ -23,10 +23,14 @@ public class CarModelService(IRepository<CarModel, int> repository, IMapper mapp
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(CarModelCreate entity_dto)
+    public void Update(CarModelCreate entity_dto, int model_id)
     {
-        CarModel entity = mapper.Map<CarModel>(entity_dto);
-        repository.Update(entity);
+        var existing = repository.Read(model_id) 
+            ?? throw new KeyNotFoundException($"Model(id={model_id}) does not exist");
+
+        mapper.Map(entity_dto, existing);
+
+        repository.Update(existing);
     }
 
     /// <summary>
