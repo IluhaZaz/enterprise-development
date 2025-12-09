@@ -2,7 +2,7 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Enums;
 using System.Drawing;
 
-namespace CarRental.Domain.TestData;
+namespace CarRental.Domain.DataSeed;
 
 /// <summary>
 /// Class containing data for unit tests
@@ -36,8 +36,8 @@ public class CarRentalDataSeed
 
     public CarRentalDataSeed()
     {
-        CarModels = new List<CarModel>
-        {
+        CarModels =
+        [
             new CarModel { Id = 1, Name = "Toyota Camry", SeatsNumber = 5, DriveType = CarDriveType.FrontWheel, BodyType = CarBodyType.Saloon, Class = CarClass.D },
             new CarModel { Id = 2, Name = "BMW X5", SeatsNumber = 5, DriveType = CarDriveType.AllWheel, BodyType = CarBodyType.SportsUtilityVehicle, Class = CarClass.E },
             new CarModel { Id = 3, Name = "Lada Vesta", SeatsNumber = 5, DriveType = CarDriveType.FrontWheel, BodyType = CarBodyType.Saloon, Class = CarClass.B },
@@ -46,10 +46,10 @@ public class CarRentalDataSeed
             new CarModel { Id = 6, Name = "Volkswagen Polo", SeatsNumber = 5, DriveType = CarDriveType.FrontWheel, BodyType = CarBodyType.Hatchback, Class = CarClass.B },
             new CarModel { Id = 7, Name = "Hyundai Creta", SeatsNumber = 5, DriveType = CarDriveType.FrontWheel, BodyType = CarBodyType.CrossoverUtilityVehicle, Class = CarClass.C },
             new CarModel { Id = 8, Name = "Skoda Octavia", SeatsNumber = 5, DriveType = CarDriveType.FrontWheel, BodyType = CarBodyType.Estate, Class = CarClass.C }
-        };
+        ];
 
-        ModelGenerations = new List<ModelGeneration>
-        {
+        ModelGenerations =
+        [
             new ModelGeneration { Id = 1, Year = 2020, EngineVolume = 2.5f, Model = CarModels[0], TransmissionType = CarTransmissionType.Automatic, PricePerHour = 2000 },
             new ModelGeneration { Id = 2, Year = 2022, EngineVolume = 2.0f, Model = CarModels[0], TransmissionType = CarTransmissionType.Automatic, PricePerHour = 2200 },
             new ModelGeneration { Id = 3, Year = 2021, EngineVolume = 3.0f, Model = CarModels[1], TransmissionType = CarTransmissionType.Automatic, PricePerHour = 3500 },
@@ -60,10 +60,10 @@ public class CarRentalDataSeed
             new ModelGeneration { Id = 8, Year = 2023, EngineVolume = 2.0f, Model = CarModels[6], TransmissionType = CarTransmissionType.Automatic, PricePerHour = 1800 },
             new ModelGeneration { Id = 9, Year = 2022, EngineVolume = 1.8f, Model = CarModels[7], TransmissionType = CarTransmissionType.Automatic, PricePerHour = 1700 },
             new ModelGeneration { Id = 10, Year = 2020, EngineVolume = 1.4f, Model = CarModels[5], TransmissionType = CarTransmissionType.ContinuouslyVariable, PricePerHour = 1000 }
-        };
+        ];
 
-        Cars = new List<Car>
-        {
+        Cars =
+        [
             new Car { Id = 1, Generation = ModelGenerations[0], LicensePlate = "A123BC777", Color = Color.Black },
             new Car { Id = 2, Generation = ModelGenerations[0], LicensePlate = "B456OP777", Color = Color.White },
             new Car { Id = 3, Generation = ModelGenerations[1], LicensePlate = "E789TT777", Color = Color.Silver },
@@ -78,10 +78,10 @@ public class CarRentalDataSeed
             new Car { Id = 12, Generation = ModelGenerations[7], LicensePlate = "C456LL777", Color = Color.Green },
             new Car { Id = 13, Generation = ModelGenerations[8], LicensePlate = "Z789MM777", Color = Color.Silver },
             new Car { Id = 14, Generation = ModelGenerations[9], LicensePlate = "H321HH777", Color = Color.Red }
-        };
+        ];
 
-        Clients = new List<Client>
-        {
+        Clients =
+        [
             new Client { Id = 1, LastName = "Ivanov", FirstName = "Ivan", Patronymic = "Ivanovich", BirthDate = new DateOnly(1985, 5, 15), DriverLicense = "7712345678" },
             new Client { Id = 2, LastName = "Petrov", FirstName = "Petr", Patronymic = "Petrovich", BirthDate = new DateOnly(1990, 8, 22), DriverLicense = "7723456789" },
             new Client { Id = 3, LastName = "Sidorov", FirstName = "Alexey", Patronymic = "Sergeevich", BirthDate = new DateOnly(1988, 3, 10), DriverLicense = "7734567890" },
@@ -92,10 +92,10 @@ public class CarRentalDataSeed
             new Client { Id = 8, LastName = "Sokolov", FirstName = "Pavel", Patronymic = "Nikolaevich", BirthDate = new DateOnly(1991, 6, 8), DriverLicense = "7789012345" },
             new Client { Id = 9, LastName = "Novikov", FirstName = "Nikolay", Patronymic = "Vladimirovich", BirthDate = new DateOnly(1989, 4, 25), DriverLicense = "7790123456" },
             new Client { Id = 10, LastName = "Morozov", FirstName = "Vladimir", Patronymic = "Olegovich", BirthDate = new DateOnly(1993, 12, 3), DriverLicense = "7701234567" }
-        };
+        ];
 
-        RentalLogs = new List<RentalLog>
-        {
+        RentalLogs =
+        [
             // Toyota Camry (most popular)
             new RentalLog { Id = 1, Car = Cars[0], Client = Clients[0], RentStartDate = new DateTime(2024, 1, 10, 10, 0, 0), Duration = 24 },
             new RentalLog { Id = 2, Car = Cars[0], Client = Clients[1], RentStartDate = new DateTime(2024, 1, 15, 14, 0, 0), Duration = 48 },
@@ -137,6 +137,6 @@ public class CarRentalDataSeed
             new RentalLog { Id = 22, Car = Cars[5], Client = Clients[8], RentStartDate = new DateTime(2024, 2, 21, 15, 0, 0), Duration = 72 },
             new RentalLog { Id = 23, Car = Cars[8], Client = Clients[0], RentStartDate = new DateTime(2024, 2, 22, 12, 0, 0), Duration = 24 },
             new RentalLog { Id = 24, Car = Cars[10], Client = Clients[1], RentStartDate = new DateTime(2024, 2, 23, 9, 0, 0), Duration = 36 }
-        };
+        ];
     }
 }

@@ -1,7 +1,7 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
-namespace CarRental.Infrastructure.Repositories;
+namespace CarRental.Infrastructure.InMemory.Repositories;
 
 /// <summary>
 /// In memory repository for Car entities
@@ -37,51 +37,53 @@ public class CarRepository : IRepository<Car, int>
     /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(Car entity)
+    public Task<int> Create(Car entity)
     {
         entity.Id = _currId;
         _cars.Add(entity);
         _currId++;
 
-        return entity.Id;
+        return Task.FromResult(entity.Id);
     }
 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(Car entity)
+    public Task Update(Car entity)
     {
         Delete(entity.Id);
         _cars.Add(entity);
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
     /// Delete entity by ID
     /// </summary>
-    public bool Delete(int id)
+    public Task<bool> Delete(int id)
     {
-        Car? car = Read(id);
+        Car? car = Read(id).Result;
         if (car != null)
         {
             _cars.Remove(car);
-            return true;
+            return Task.FromResult(true);
         }
-        return false;
+        return Task.FromResult(false);
     }
 
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<Car> ReadAll()
+    public Task<List<Car>> ReadAll()
     {
-        return [.. _cars];
+        return Task.FromResult<List<Car>>([.. _cars]);
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public Car? Read(int id)
+    public Task<Car?> Read(int id)
     {
-        return _cars.FirstOrDefault(c => c.Id == id);
+        return Task.FromResult(_cars.FirstOrDefault(c => c.Id == id));
     }
 }

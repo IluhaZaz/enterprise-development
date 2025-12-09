@@ -9,25 +9,25 @@ public interface IRepository<TEntity, TKey>
     /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public TKey Create(TEntity entity);
+    public Task<TKey> Create(TEntity entity);
 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(TEntity entity);
+    public Task Update(TEntity entity);
 
     /// <summary>
     /// Delete entity by ID
     /// </summary>
-    public bool Delete(TKey id);
+    public Task<bool> Delete(TKey id);
 
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<TEntity> ReadAll();
+    public Task<List<TEntity>> ReadAll();
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public TEntity? Read(TKey id);
+    public Task<TEntity?> Read(TKey id);
 }

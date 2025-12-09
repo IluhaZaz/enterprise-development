@@ -1,7 +1,6 @@
-using CarRental.Domain.TestData;
+using CarRental.Domain.DataSeed;
 
 namespace CarRental.Tests;
-
 
 /// <summary>
 /// Class containing unit tests to check domain classes work properly

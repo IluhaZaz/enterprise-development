@@ -1,7 +1,7 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
-namespace CarRental.Infrastructure.Repositories;
+namespace CarRental.Infrastructure.InMemory.Repositories;
 
 /// <summary>
 /// In memory repository for RentalLog entities
@@ -12,6 +12,7 @@ public class RentalLogRepository : IRepository<RentalLog, int>
     /// Storage for entities
     /// </summary>
     private readonly List<RentalLog> _rentalLogs;
+
     /// <summary>
     /// Id num for next created entity
     /// </summary>
@@ -37,51 +38,53 @@ public class RentalLogRepository : IRepository<RentalLog, int>
     /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(RentalLog entity)
+    public Task<int> Create(RentalLog entity)
     {
         entity.Id = _currId;
         _rentalLogs.Add(entity);
         _currId++;
 
-        return entity.Id;
+        return Task.FromResult(entity.Id);
     }
 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(RentalLog entity)
+    public Task Update(RentalLog entity)
     {
         Delete(entity.Id);
         _rentalLogs.Add(entity);
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
     /// Delete entity by ID
     /// </summary>
-    public bool Delete(int id)
+    public Task<bool> Delete(int id)
     {
-        RentalLog? rentalLog = Read(id);
+        RentalLog? rentalLog = Read(id).Result;
         if (rentalLog != null)
         {
             _rentalLogs.Remove(rentalLog);
-            return true;
+            return Task.FromResult(true);
         }
-        return false;
+        return Task.FromResult(false);
     }
 
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<RentalLog> ReadAll()
+    public Task<List<RentalLog>> ReadAll()
     {
-        return [.. _rentalLogs];
+        return Task.FromResult(_rentalLogs.ToList());
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public RentalLog? Read(int id)
+    public Task<RentalLog?> Read(int id)
     {
-        return _rentalLogs.FirstOrDefault(c => c.Id == id);
+        return Task.FromResult(_rentalLogs.FirstOrDefault(c => c.Id == id));
     }
 }

@@ -16,10 +16,10 @@ public class RentalLogController(RentalLogService service, ILogger<RentalLogCont
     /// Return linked Client's DTO
     /// </summary>
     [HttpGet("{id}/client")]
-    public ActionResult<ClientGet?> GetClient(int id)
-        => Log(() =>
+    public async Task<ActionResult<ClientGet?>> GetClient(int id)
+        => await Log(async () =>
         {
-            ClientGet? result = service.GetClient(id);
+            ClientGet? result = await service.GetClient(id);
             if (result != null)
             {
                 return Ok(result);
@@ -31,10 +31,10 @@ public class RentalLogController(RentalLogService service, ILogger<RentalLogCont
     /// Return linked Car's DTO
     /// </summary>
     [HttpGet("{id}/car")]
-    public ActionResult<CarGet?> GetCar(int id)
-        => Log(() =>
+    public async Task<ActionResult<CarGet?>> GetCar(int id)
+        => await Log(async () =>
         {
-            CarGet? result = service.GetCar(id);
+            CarGet? result = await service.GetCar(id);
             if (result != null)
             {
                 return Ok(result);

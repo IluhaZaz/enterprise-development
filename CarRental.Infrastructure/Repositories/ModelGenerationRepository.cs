@@ -1,7 +1,7 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
-namespace CarRental.Infrastructure.Repositories;
+namespace CarRental.Infrastructure.InMemory.Repositories;
 
 /// <summary>
 /// In memory repository for ModelGeneration entities
@@ -12,6 +12,7 @@ public class ModelGenerationRepository : IRepository<ModelGeneration, int>
     /// Storage for entities
     /// </summary>
     private readonly List<ModelGeneration> _modelGenerations;
+
     /// <summary>
     /// Id num for next created entity
     /// </summary>
@@ -37,51 +38,53 @@ public class ModelGenerationRepository : IRepository<ModelGeneration, int>
     /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(ModelGeneration entity)
+    public Task<int> Create(ModelGeneration entity)
     {
         entity.Id = _currId;
         _modelGenerations.Add(entity);
         _currId++;
 
-        return entity.Id;
+        return Task.FromResult(entity.Id);
     }
 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(ModelGeneration entity)
+    public Task Update(ModelGeneration entity)
     {
         Delete(entity.Id);
         _modelGenerations.Add(entity);
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
     /// Delete entity by ID
     /// </summary>
-    public bool Delete(int id)
+    public Task<bool> Delete(int id)
     {
-        ModelGeneration? modelGeneration = Read(id);
+        ModelGeneration? modelGeneration = Read(id).Result;
         if (modelGeneration != null)
         {
             _modelGenerations.Remove(modelGeneration);
-            return true;
+            return Task.FromResult(true);
         }
-        return false;
+        return Task.FromResult(false);
     }
 
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<ModelGeneration> ReadAll()
+    public Task<List<ModelGeneration>> ReadAll()
     {
-        return [.. _modelGenerations];
+        return Task.FromResult(_modelGenerations.ToList());
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public ModelGeneration? Read(int id)
+    public Task<ModelGeneration?> Read(int id)
     {
-        return _modelGenerations.FirstOrDefault(c => c.Id == id);
+        return Task.FromResult(_modelGenerations.FirstOrDefault(c => c.Id == id));
     }
 }

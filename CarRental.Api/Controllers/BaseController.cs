@@ -18,13 +18,13 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
     /// Api method for creating new entity instance
     /// </summary>
     [HttpPost]
-    public ActionResult<int> Create([FromBody] TEntityCreateDTO entity_dto)
-        => Log(() =>
+    public async Task<ActionResult<int>> Create([FromBody] TEntityCreateDTO entity_dto)
+        => await Log(async () =>
         {
-            int result = -1;
+            var result = -1;
             try
             {
-                result = service.Create(entity_dto);
+                result = await service.Create(entity_dto);
             }
             catch (KeyNotFoundException ex)
             {
@@ -37,12 +37,12 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
     /// Api method for updating entity data
     /// </summary>
     [HttpPut("{id}")]
-    public ActionResult Update(int id, [FromBody] TEntityCreateDTO entity_dto)
-        => Log(() =>
+    public async Task<ActionResult> Update(int id, [FromBody] TEntityCreateDTO entity_dto)
+        => await Log(async () =>
         {
             try
             {
-                service.Update(entity_dto, id);
+                await service.Update(entity_dto, id);
                 return Ok();
             }
             catch (KeyNotFoundException)
@@ -55,10 +55,10 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
     /// Api method for deleting entity by id
     /// </summary>
     [HttpDelete("{id}")]
-    public ActionResult<bool> Delete(int id)
-        => Log(() =>
+    public async Task<ActionResult<bool>> Delete(int id)
+        => await Log(async () =>
         {
-            bool result = service.Delete(id);
+            var result = await service.Delete(id);
             if (result)
             {
                 return Ok();
@@ -70,56 +70,51 @@ public class BaseController<TEntityCreateDTO, TEntityGetDTO>(
     /// Api method for getting all entity instances
     /// </summary>
     [HttpGet]
-    public ActionResult<List<TEntityGetDTO>> GetAll()
-        => Log(() => Ok(service.ReadAll()));
-
+    public async Task<ActionResult<List<TEntityGetDTO>>> GetAll()
+        => await Log(async () => Ok(await service.ReadAll()));
 
     /// <summary>
     /// Api method for getting entity instance by id
     /// </summary>
     [HttpGet("{id}")]
-    public ActionResult<TEntityGetDTO?> Get(int id)
-        => Log(() =>
-    {
-        TEntityGetDTO? result = service.Read(id);
-        if (result != null)
+    public async Task<ActionResult<TEntityGetDTO?>> Get(int id)
+        => await Log(async () =>
         {
-            return Ok(result);
-        }
-        return NotFound();
-    });
+            TEntityGetDTO? result = await service.Read(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        });
 
     /// <summary>
     /// Print data about all incoming requests
     /// </summary>
-    protected ActionResult Log(Func<ActionResult> action)
+    protected async Task<ActionResult> Log(Func<Task<ActionResult>> action)
     {
-        string method = HttpContext.Request.Method;
-        string route = HttpContext.Request.Path;
-        string time = DateTime.Now.ToString("HH:mm:ss");
+        var method = HttpContext.Request.Method;
+        var route = HttpContext.Request.Path;
+        var time = DateTime.Now.ToString("HH:mm:ss");
 
         ActionResult result;
-        int code;
 
         try
         {
-            result = action();
-            code = 200;
+            result = await action();
         }
         catch (KeyNotFoundException ex)
         {
             logger.LogError(ex, $"KeyNotFoundException for {method} {route}");
             result = StatusCode(404, $"{ex.Message}\n{ex.InnerException?.Message}");
-            code = 404;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, $"Exception for {method} {route}");
             result = StatusCode(500, $"{ex.Message}\n{ex.InnerException?.Message}");
-            code = 500;
         }
 
-        string message = $"{time} {method} {route}: {(result as IStatusCodeActionResult).StatusCode}";
+        var message = $"{time} {method} {route}: {(result as IStatusCodeActionResult)?.StatusCode}";
         logger.LogInformation(message);
 
         return result;

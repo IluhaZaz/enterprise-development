@@ -10,52 +10,52 @@ namespace CarRental.Application.Services;
 /// </summary>
 public class CarModelService(IRepository<CarModel, int> repository, IMapper mapper) : IService<CarModelCreate, CarModelGet>
 {
-    // <summary>
+    /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(CarModelCreate entity_dto)
+    public async Task<int> Create(CarModelCreate entity_dto)
     {
         CarModel entity = mapper.Map<CarModel>(entity_dto);
-        repository.Create(entity);
+        await repository.Create(entity);
         return entity.Id;
     }
 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(CarModelCreate entity_dto, int model_id)
+    public async Task Update(CarModelCreate entity_dto, int model_id)
     {
-        var existing = repository.Read(model_id) 
+        var existing = await repository.Read(model_id)
             ?? throw new KeyNotFoundException($"Model(id={model_id}) does not exist");
 
         mapper.Map(entity_dto, existing);
 
-        repository.Update(existing);
+        await repository.Update(existing);
     }
 
     /// <summary>
     /// Delete entity by ID
     /// </summary>
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        return repository.Delete(id);
+        return await repository.Delete(id);
     }
 
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<CarModelGet> ReadAll()
+    public async Task<List<CarModelGet>> ReadAll()
     {
-        List<CarModel> res = repository.ReadAll();
+        List<CarModel> res = await repository.ReadAll();
         return mapper.Map<List<CarModelGet>>(res);
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public CarModelGet? Read(int id)
+    public async Task<CarModelGet?> Read(int id)
     {
-        CarModel? entity = repository.Read(id);
+        CarModel? entity = await repository.Read(id);
         return mapper.Map<CarModelGet>(entity);
     }
 }

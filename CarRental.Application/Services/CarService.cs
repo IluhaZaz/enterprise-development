@@ -13,69 +13,70 @@ public class CarService(
     IRepository<ModelGeneration, int> generationRepository,
     IMapper mapper) : IService<CarCreate, CarGet>
 {
-    // <summary>
+    /// <summary>
     /// Create new entity instance and return it's ID
     /// </summary>
-    public int Create(CarCreate entity_dto)
+    public async Task<int> Create(CarCreate entity_dto)
     {
-        ModelGeneration generation = generationRepository.Read(entity_dto.GenerationId)
-             ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
+        ModelGeneration generation = await generationRepository.Read(entity_dto.GenerationId)
+            ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
 
         Car entity = mapper.Map<Car>(entity_dto);
         entity.Generation = generation;
 
-        repository.Create(entity);
+        await repository.Create(entity);
         return entity.Id;
     }
 
     /// <summary>
     /// Update entity's data
     /// </summary>
-    public void Update(CarCreate entity_dto, int car_id)
+    public async Task Update(CarCreate entity_dto, int car_id)
     {
-        ModelGeneration generation = generationRepository.Read(entity_dto.GenerationId)
-             ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
+        ModelGeneration generation = await generationRepository.Read(entity_dto.GenerationId)
+            ?? throw new KeyNotFoundException($"ModelGeneration(id={entity_dto.GenerationId}) does not exist");
 
-        var existing = repository.Read(car_id)
+        var existing = await repository.Read(car_id)
             ?? throw new KeyNotFoundException($"Car(id={car_id}) does not exist");
 
         mapper.Map(entity_dto, existing);
+        existing.Generation = generation;
 
-        repository.Update(existing);
+        await repository.Update(existing);
     }
 
     /// <summary>
     /// Delete entity by ID
     /// </summary>
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        return repository.Delete(id);
+        return await repository.Delete(id);
     }
 
     /// <summary>
     /// Return all entities from storage
     /// </summary>
-    public List<CarGet> ReadAll()
+    public async Task<List<CarGet>> ReadAll()
     {
-        List<Car> res = repository.ReadAll();
+        List<Car> res = await repository.ReadAll();
         return mapper.Map<List<CarGet>>(res);
     }
 
     /// <summary>
     /// Return entity from storage by id
     /// </summary>
-    public CarGet? Read(int id)
+    public async Task<CarGet?> Read(int id)
     {
-        Car? entity = repository.Read(id);
+        Car? entity = await repository.Read(id);
         return mapper.Map<CarGet>(entity);
     }
 
     /// <summary>
     /// Return linked ModelGenerations's DTO
     /// </summary>
-    public ModelGenerationGet? GetModelGeneration(int carId)
+    public async Task<ModelGenerationGet?> GetModelGeneration(int carId)
     {
-        Car? car = repository.Read(carId);
+        Car? car = await repository.Read(carId);
         if (car != null)
             return mapper.Map<ModelGenerationGet>(car.Generation);
         return null;

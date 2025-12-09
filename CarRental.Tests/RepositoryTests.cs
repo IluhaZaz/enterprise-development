@@ -13,14 +13,14 @@ public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixtur
     /// ordered alphabetically by last name, first name, and patronymic
     /// </summary>
     [Fact]
-    public void GetClientsRentedModel()
+    public async Task GetClientsRentedModelAsync()
     {
-        var cars = fixture.CarModelRepository.ReadAll();
+        var cars = await fixture.CarModelRepository.ReadAll();
         var target = cars[1];
 
         var expectedClientsId = new[] { 2, 6, 7 };
 
-        var logs = fixture.RentalLogRepository.ReadAll();
+        var logs = await fixture.RentalLogRepository.ReadAll();
         var actual = logs
             .Where(r => r.Car.Generation.Model.Name == target.Name)
             .Select(r => r.Client)
@@ -38,13 +38,13 @@ public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixtur
     /// Retrieves all cars that are currently rented
     /// </summary>
     [Fact]
-    public void GetCarsInRent()
+    public async void GetCarsInRent()
     {
         var currentTime = new DateTime(2024, 2, 19, 14, 0, 0);
 
         var expectedCarsId = new[] { 1, 2 };
 
-        var logs = fixture.RentalLogRepository.ReadAll();
+        var logs = await fixture.RentalLogRepository.ReadAll();
         var actual = logs
             .Where(r => r.RentStartDate <= currentTime && currentTime <= r.RentStartDate.AddHours((double)r.Duration))
             .Select(r => r.Car.Id);
@@ -55,11 +55,11 @@ public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixtur
     /// Retrieves the top 5 most frequently rented cars based on total rental count
     /// </summary>
     [Fact]
-    public void GetTopFiveCars()
+    public async void GetTopFiveCars()
     {
         var expectedCarsId = new[] { 1, 2, 4, 6, 9 };
 
-        var logs = fixture.RentalLogRepository.ReadAll();
+        var logs = await fixture.RentalLogRepository.ReadAll();
         var actual = logs
             .GroupBy(log => log.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
@@ -74,9 +74,9 @@ public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixtur
     /// Returns the total number of rentals for each car
     /// </summary>
     [Fact]
-    public void GetRentNumByCar()
+    public async void GetRentNumByCar()
     {
-        var cars = fixture.CarRepository.ReadAll();
+        var cars = await fixture.CarRepository.ReadAll();
         var allCars = cars
             .OrderBy(c => c.Id)
             .ToList();
@@ -90,7 +90,7 @@ public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixtur
             expectedResult[i + 1] = expected[i];
         }
 
-        var logs = fixture.RentalLogRepository.ReadAll();
+        var logs = await fixture.RentalLogRepository.ReadAll();
         var actual = logs
             .GroupBy(r => r.Car)
             .Select(g => new { Car = g.Key, Count = g.Count() })
@@ -105,11 +105,11 @@ public class CarRenatalRepositoryTests(RepositoryFixture fixture) : IClassFixtur
     /// calculated as the sum of (duration × price per hour) across all their rentals
     /// </summary>
     [Fact]
-    public void GetTopFiveClientsByRent()
+    public async void GetTopFiveClientsByRent()
     {
         var expectedClientsId = new[] { 6, 5, 2, 1, 4 };
 
-        var logs = fixture.RentalLogRepository.ReadAll();
+        var logs = await fixture.RentalLogRepository.ReadAll();
         var actual = logs
         .GroupBy(r => r.Client)
         .Select(g => new

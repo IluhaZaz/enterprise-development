@@ -1,6 +1,6 @@
-﻿using CarRental.Domain.Interfaces;
-using CarRental.Domain.TestData;
-using CarRental.Infrastructure.Repositories;
+﻿using CarRental.Domain.DataSeed;
+using CarRental.Domain.Interfaces;
+using CarRental.Infrastructure.InMemory.Repositories;
 
 namespace CarRental.Tests.Fixtures;
 

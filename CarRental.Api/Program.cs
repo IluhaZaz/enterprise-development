@@ -3,10 +3,10 @@ using CarRental.Application;
 using CarRental.Application.Contracts;
 using CarRental.Application.Interfaces;
 using CarRental.Application.Services;
+using CarRental.Domain.DataSeed;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using CarRental.Domain.TestData;
-using CarRental.Infrastructure.Repositories;
+using CarRental.Infrastructure.InMemory.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +19,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-CarRentalDataSeed data = new CarRentalDataSeed();
+var data = new CarRentalDataSeed();
 
 builder.Services.AddSingleton<IRepository<CarModel, int>, CarModelRepository>(_ => new CarModelRepository(data.CarModels));
 builder.Services.AddSingleton<IRepository<ModelGeneration, int>, ModelGenerationRepository>(_ => new ModelGenerationRepository(data.ModelGenerations));

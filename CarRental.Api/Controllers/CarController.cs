@@ -16,10 +16,10 @@ public class CarController(CarService service, ILogger<CarController> logger)
     /// Return linked ModelGeneration's DTO
     /// </summary>
     [HttpGet("{id}/generation")]
-    public ActionResult<CarGet?> GetGeneration(int id)
-        => Log(() =>
+    public async Task<ActionResult<CarGet?>> GetGeneration(int id)
+        => await Log(async () =>
         {
-            ModelGenerationGet? result = service.GetModelGeneration(id);
+            ModelGenerationGet? result = await service.GetModelGeneration(id);
             if (result != null)
             {
                 return Ok(result);

@@ -22,7 +22,7 @@
 
   <ItemGroup>
 	 <ProjectReference Include="..\CarRental.Domain\CarRental.Domain.csproj" />
-	 <ProjectReference Include="..\CarRental.Infrastructure\CarRental.Infrastructure.csproj" />
+	 <ProjectReference Include="..\CarRental.Infrastructure\CarRental.Infrastructure.InMemory.csproj" />
   </ItemGroup>
 
 </Project>
