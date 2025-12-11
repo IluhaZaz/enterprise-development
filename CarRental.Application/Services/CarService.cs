@@ -11,6 +11,7 @@ namespace CarRental.Application.Services;
 public class CarService(
     IRepository<Car, int> repository,
     IRepository<ModelGeneration, int> generationRepository,
+    IRepository<RentalLog, int> rentalRepository,
     IMapper mapper) : IService<CarCreate, CarGet>
 {
     /// <summary>
@@ -79,6 +80,26 @@ public class CarService(
         Car? car = await repository.Read(carId);
         if (car != null)
             return mapper.Map<ModelGenerationGet>(car.Generation);
+        return null;
+    }
+
+    /// <summary>
+    /// Return all rental logs linked to specified car
+    /// </summary>
+    public async Task<IList<RentalLogGet>?> GetRentalLogs(int carId)
+    {
+        Car? car = await repository.Read(carId);
+        if (car != null)
+        {
+            var rentals = await rentalRepository.ReadAll();
+
+            var carRentals = rentals
+                .Where(r => r.CarId == carId)
+                .ToList();
+
+            return mapper.Map<IList<RentalLogGet>>(carRentals);
+        }
+
         return null;
     }
 }

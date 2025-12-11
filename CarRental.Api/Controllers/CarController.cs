@@ -26,4 +26,20 @@ public class CarController(CarService service, ILogger<CarController> logger)
             }
             return NotFound();
         });
+
+    /// <summary>
+    /// Return all rental logs linked to specified car
+    /// </summary>
+    [HttpGet("{id}/rentals")]
+    public async Task<ActionResult<IList<RentalLogGet>>> GetRentals(int id)
+        => await Log(async () =>
+        {
+            var result = await service.GetRentalLogs(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
+        });
 }

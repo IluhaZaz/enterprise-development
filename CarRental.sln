@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Domain", "CarRent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Tests", "CarRental.Tests\CarRental.Tests.csproj", "{633D1A47-CE71-4E39-B2C7-2BDEE7A0E768}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Infrastructure.InMemory", "CarRental.Infrastructure\CarRental.Infrastructure.InMemory.csproj", "{97F0A5F5-713C-4702-A0FB-267DCD7E97C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Infrastructure.InMemory", "CarRental.Infrastructure.InMemory\CarRental.Infrastructure.InMemory.csproj", "{97F0A5F5-713C-4702-A0FB-267DCD7E97C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Application.Contracts", "CarRental.Application.Contracts\CarRental.Application.Contracts.csproj", "{D6D30217-5B0D-4191-9583-A09A9C0D5690}"
 	ProjectSection(ProjectDependencies) = postProject

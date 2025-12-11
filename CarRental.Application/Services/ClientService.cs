@@ -8,7 +8,11 @@ namespace CarRental.Application.Services;
 /// <summary>
 /// Provide CRUD operation for Client entity
 /// </summary>
-public class ClientService(IRepository<Client, int> repository, IMapper mapper) : IService<ClientCreate, ClientGet>
+public class ClientService(
+    IRepository<Client, int> repository, 
+    IRepository<RentalLog, int> 
+    rentalRepository, 
+    IMapper mapper) : IService<ClientCreate, ClientGet>
 {
     /// <summary>
     /// Create new entity instance and return it's ID
@@ -57,5 +61,25 @@ public class ClientService(IRepository<Client, int> repository, IMapper mapper) 
     {
         Client? entity = await repository.Read(id);
         return mapper.Map<ClientGet>(entity);
+    }
+
+    /// <summary>
+    /// Return all rental logs linked to specified client
+    /// </summary>
+    public async Task<IList<RentalLogGet>?> GetRentalLogs(int clientId)
+    {
+        Client? client = await repository.Read(clientId);
+        if (client != null)
+        {
+            var rentals = await rentalRepository.ReadAll();
+
+            var clientRentals = rentals
+                .Where(r => r.ClientId == clientId)
+                .ToList();
+
+            return mapper.Map<IList<RentalLogGet>>(clientRentals);
+        }
+
+        return null;
     }
 }

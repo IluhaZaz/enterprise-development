@@ -35,10 +35,11 @@ builder.Services.AddTransient<IRepository<Car, int>, CarEfCoreRepository>();
 builder.Services.AddTransient<IRepository<Client, int>, ClientEfCoreRepository>();
 builder.Services.AddTransient<IRepository<RentalLog, int>, RentalLogEfCoreRepository>();
 
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddScoped<IService<CarModelCreate, CarModelGet>, CarModelService>();
 builder.Services.AddScoped<ModelGenerationService>();
 builder.Services.AddScoped<CarService>();
-builder.Services.AddScoped<IService<ClientCreate, ClientGet>, ClientService>();
+builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<RentalLogService>();
 
 builder.Services.AddSwaggerGen(c =>
