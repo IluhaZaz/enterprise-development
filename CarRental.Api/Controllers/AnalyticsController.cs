@@ -9,7 +9,7 @@ namespace CarRental.Api.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public class AnalyticsController(IAnalyticsService analytics, ILogger<AnalyticsController> logger)
+public class AnalyticsController(IAnalyticsService analytics)
     : ControllerBase
 {
     /// <summary>

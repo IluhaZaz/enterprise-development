@@ -8,12 +8,14 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 using CarRental.Infrastructure.EfCore;
 using CarRental.Infrastructure.EfCore.Repositories;
+using CarRental.Infrastructure.RabbitMq;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+builder.AddRabbitMQClient("generatorConnection");
 
 var mapperConfig = new MapperConfiguration(
     config => config.AddProfile(new MapProfile()),
@@ -41,6 +43,8 @@ builder.Services.AddScoped<ModelGenerationService>();
 builder.Services.AddScoped<CarService>();
 builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<RentalLogService>();
+
+builder.Services.AddHostedService<RentalLogConsumer>();
 
 builder.Services.AddSwaggerGen(c =>
 {
