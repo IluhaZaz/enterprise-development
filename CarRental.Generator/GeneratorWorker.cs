@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Bogus;
 using CarRental.Application.Contracts;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
 namespace CarRental.Generator;
@@ -12,23 +13,23 @@ namespace CarRental.Generator;
 public class GeneratorWorker(
     IConnection connection,
     ILogger<GeneratorWorker> logger,
-    IConfiguration configuration) : BackgroundService
+    IOptions<GeneratorOptions> options) : BackgroundService
 {
+    private readonly GeneratorOptions _options = options.Value;
+
+    /// <summary>
+    /// Executes the background task to generate and publish messages
+    /// </summary>
+    /// <param name="stoppingToken">A <see cref="CancellationToken"/> that can be used to stop the background service</param>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var intervalMs = configuration.GetValue("Generator:IntervalMs", 5000);
-        var batchSize = configuration.GetValue("Generator:BatchSize", 2);
-        var maxCarId = configuration.GetValue("Generator:MaxCarId", 28);
-        var maxClientId = configuration.GetValue("Generator:MaxClientId", 20);
-        var queueName = configuration.GetValue("Generator:QueueName", "rental-log-create")!;
-
         logger.LogInformation(
             "Generator starting with IntervalMs={IntervalMs}, BatchSize={BatchSize}, MaxCarId={MaxCarId}, MaxClientId={MaxClientId}, QueueName={QueueName}",
-            intervalMs, batchSize, maxCarId, maxClientId, queueName);
+            _options.IntervalMs, _options.BatchSize, _options.MaxCarId, _options.MaxClientId, _options.QueueName);
 
         var faker = new Faker<RentalLogCreate>()
-            .RuleFor(r => r.CarId, f => f.Random.Int(1, maxCarId))
-            .RuleFor(r => r.ClientId, f => f.Random.Int(1, maxClientId))
+            .RuleFor(r => r.CarId, f => f.Random.Int(1, _options.MaxCarId))
+            .RuleFor(r => r.ClientId, f => f.Random.Int(1, _options.MaxClientId))
             .RuleFor(r => r.RentStartDate, f => f.Date.Between(DateTime.UtcNow.AddDays(-30), DateTime.UtcNow.AddDays(30)))
             .RuleFor(r => r.Duration, f => f.Random.Double(1, 30));
 
@@ -43,7 +44,7 @@ public class GeneratorWorker(
                 channel = await connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
                 await channel.QueueDeclareAsync(
-                    queue: queueName,
+                    queue: _options.QueueName,
                     durable: true,
                     exclusive: false,
                     autoDelete: false,
@@ -75,7 +76,7 @@ public class GeneratorWorker(
         {
             try
             {
-                for (var i = 0; i < batchSize; i++)
+                for (var i = 0; i < _options.BatchSize; i++)
                 {
                     var rentalLog = faker.Generate();
                     var message = JsonSerializer.Serialize(rentalLog);
@@ -83,7 +84,7 @@ public class GeneratorWorker(
 
                     await channel.BasicPublishAsync(
                         exchange: string.Empty,
-                        routingKey: queueName,
+                        routingKey: _options.QueueName,
                         mandatory: false,
                         body: body,
                         cancellationToken: stoppingToken);
@@ -98,7 +99,7 @@ public class GeneratorWorker(
                 logger.LogError(ex, "Error publishing message");
             }
 
-            await Task.Delay(intervalMs, stoppingToken);
+            await Task.Delay(_options.IntervalMs, stoppingToken);
         }
 
         await channel.CloseAsync(stoppingToken);
