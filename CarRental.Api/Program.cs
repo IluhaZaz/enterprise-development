@@ -15,7 +15,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.AddRabbitMQClient("generatorConnection");
+builder.AddRabbitMQClient("rabbitMqGenerator");
 
 var mapperConfig = new MapperConfiguration(
     config => config.AddProfile(new MapProfile()),
